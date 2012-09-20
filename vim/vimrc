@@ -8,8 +8,8 @@ let mapleader=","
 " This loads all the plugins in ~/.vim/bundle
 " Use tpope's pathogen plugin to manage all other plugins
 
-  call pathogen#infect()
-  call pathogen#helptags()
+call pathogen#infect()
+call pathogen#helptags()
 
 " ================ General Config ====================
 
@@ -26,6 +26,8 @@ set autoread                    "Reload files changed outside vim
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
+" Switch between last buffer
+nnoremap <leader>. <c-^>
 
 "turn on syntax highlighting
 syntax on
@@ -34,6 +36,9 @@ syntax on
 
 set incsearch        "Find the next match as we type the search
 set hlsearch         "Hilight searches by default
+set ignorecase       "Ignore case when searching
+" press esc to stop search highlight
+nnoremap <silent> <esc> :noh<return><esc>
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
 
 " ================ Turn Off Swap Files ==============
@@ -59,8 +64,11 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set expandtab
+set colorcolumn=80
 
+autocmd FileType ruby setlocal foldmethod=syntax shiftwidth=2 tabstop=2
 autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal foldmethod=indent shiftwidth=4 tabstop=4
 
 filetype plugin on
 filetype indent on
@@ -71,6 +79,8 @@ set list listchars=tab:▸\ ,trail:·
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
+" Remove any trailing whitespace on save
+autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 " ================ Folds ============================
 
 set foldmethod=indent   "fold based on indent
@@ -87,6 +97,7 @@ set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
 set wildignore+=vendor/rails/**
 set wildignore+=vendor/cache/**
+set wildignore+=vendor/bundle/**
 set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
@@ -121,3 +132,10 @@ vmap <D-]> >gv
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Make RVM work in Vim.
+set shell=bash
+
+" save & load session in working directory
+map <leader>s :mksession! .session.vim<CR>
+map <leader>l :so .session.vim<CR>
