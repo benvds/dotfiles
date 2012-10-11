@@ -32,6 +32,8 @@ nnoremap <leader>. <c-^>
 "turn on syntax highlighting
 syntax on
 
+colorscheme Tomorrow-Night
+
 " ================ Search Settings  =================
 
 set incsearch        "Find the next match as we type the search
@@ -78,6 +80,7 @@ set list listchars=tab:▸\ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
+set linespace=4  " Increased line height for readability
 
 " Remove any trailing whitespace on save
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -95,9 +98,13 @@ set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=vendor/bundle/**
+set wildignore+=*/vendor/rails/**
+set wildignore+=*/vendor/cache/**
+set wildignore+=*/vendor/bundle/**
+set wildignore+=*/bundler_stubs/**
+set wildignore+=*/\.git/**
+set wildignore+=*/\.hg/**
+set wildignore+=*/\.svn/**
 set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
