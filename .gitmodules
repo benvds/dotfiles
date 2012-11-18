@@ -61,3 +61,15 @@
 [submodule "vim/bundle/ShowMarks"]
 	path = vim/bundle/ShowMarks
 	url = git://github.com/VimEz/ShowMarks.git
+[submodule "vim/bundle/vim-colors-solarized"]
+	path = vim/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/bundle/Rename2"]
+	path = vim/bundle/Rename2
+	url = git://github.com/vim-scripts/Rename2.git
+[submodule "vim/bundle/vim-session"]
+	path = vim/bundle/vim-session
+	url = git://github.com/xolox/vim-session.git
+[submodule "vim/bundle/ctrlp.vim"]
+	path = vim/bundle/ctrlp.vim
+	url = git://github.com/kien/ctrlp.vim.git

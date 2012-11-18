@@ -9,3 +9,6 @@ nnoremap <silent> ,t :CtrlPMixed<CR>
 
 " Cmd-Shift-P to clear the cache
 nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
+
+" hide initial nerd tree when opening a file
+let g:ctrlp_dont_split = 'NERD_tree_2'

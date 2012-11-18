@@ -1,8 +1,8 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/benvds/.dotfiles/vim/plugin/settings'
-let g:netrw_dirhist_2='/Users/benvds/code/web/betloggers'
-let g:netrw_dirhist_3='/Users/benvds/code/web/octopress'
+let g:netrw_dirhist_1='/Users/benvds/code/web/tree-select'
+let g:netrw_dirhist_2='/Users/benvds/code/web/test'
+let g:netrw_dirhist_3='/Users/benvds/code/web/tree-select'
 let g:netrw_dirhist_4='/Users/benvds/code/web/betloggers'
-let g:netrw_dirhist_5='/Users/benvds/code/web/engi'
-let g:netrw_dirhist_6='/Users/benvds/code/web/betloggers'
+let g:netrw_dirhist_5='/Users/benvds/.dotfiles/vim'
+let g:netrw_dirhist_6='/Users/benvds/code/web/yeoman-test'

@@ -12,7 +12,7 @@ map <silent> <D-9> :tabn 9<cr>
 " create <%= foo %> erb tags using Ctrl-k in edit mode
 imap <silent> <C-K> <%=   %><Esc>3hi
 
-" create <%= foo %> erb tags using Ctrl-j in edit mode
+" create <% foo %> erb tags using Ctrl-j in edit mode
 imap <silent> <C-J> <%  %><Esc>2hi
 
 " w!! to write a file as sudo

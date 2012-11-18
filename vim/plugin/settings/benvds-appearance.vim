@@ -3,7 +3,7 @@ if has("gui_running")
   "tell the term has 256 colors
   set t_Co=256
 
-  colorscheme Tomorrow-Night
+  colorscheme solarized
   set background=dark
 
   " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
