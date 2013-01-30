@@ -6,3 +6,5 @@ let g:syntastic_auto_jump=0
 let g:syntastic_auto_loc_list=1
 "don't care about warnings
 let g:syntastic_quiet_warnings=0
+" templates are throwing errors
+let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }

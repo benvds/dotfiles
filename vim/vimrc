@@ -147,3 +147,9 @@ set shell=bash
 " save & load session in working directory
 map <leader>s :mksession! .session.vim<CR>
 map <leader>l :so .session.vim<CR>
+
+" link .md extension to Markdown syntax
+au BufNewFile,BufRead *.md setlocal ft=markdown
+
+" format sql
+nnoremap <leader>= :SQLUFormatter<return><esc>
