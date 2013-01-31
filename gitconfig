@@ -1,7 +1,3 @@
-[user]
-  email = ben@pomodoro.nl
-  name = benvds
-
 # set your user tokens as enivornment variables, such as ~/.secrets
 # See the README for examples.
 [color]
