@@ -27,7 +27,7 @@
 	url = git://github.com/hail2u/vim-css3-syntax.git
 [submodule "vim/bundle/zencoding-vim"]
 	path = vim/bundle/zencoding-vim
-	url = git://github.com/mattn/zencoding-vim.git
+	url = http://github.com/mattn/zencoding-vim.git
 [submodule "vim/bundle/ack.vim"]
 	path = vim/bundle/ack.vim
 	url = git://github.com/mileszs/ack.vim.git
