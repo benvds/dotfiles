@@ -1,10 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/Users/benvds/code/web/strijp-cs4'
-let g:netrw_dirhist_2='/Users/benvds/code/web/pomodoro-2013'
-let g:netrw_dirhist_3='/Users/benvds/code/web/betloggers'
-let g:netrw_dirhist_4='/Users/benvds/code/web/buitengaander-test'
-let g:netrw_dirhist_5='/Users/benvds/code/web/buitengaander-template'
-let g:netrw_dirhist_6='/Users/benvds/.dotfiles/vim/plugin/settings'
-let g:netrw_dirhist_7='/Users/benvds/code/web/strijp-cs4'
-let g:netrw_dirhist_8='/Users/benvds/.dotfiles/vim/plugin/settings'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/benvds/code/web/strijp-cs4/src'
+let g:netrw_dirhist_2='/Users/benvds/code/web/scs-slideshow'
