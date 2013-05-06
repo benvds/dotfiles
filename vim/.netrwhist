@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/benvds/code/web/strijp-cs4/src'
-let g:netrw_dirhist_2='/Users/benvds/code/web/scs-slideshow'
