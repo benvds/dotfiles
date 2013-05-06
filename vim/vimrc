@@ -1,0 +1,284 @@
+" =============== Vundle ===============
+
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.dotfiles/vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+" =============== Bundles ===============
+
+Bundle 'tomtom/tlib_vim'
+Bundle 'godlygeek/csapprox'
+
+Bundle 'altercation/vim-colors-solarized'
+
+Bundle 'tomtom/tcomment_vim'
+
+if executable('ack-grep')
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    Bundle 'mileszs/ack.vim'
+elseif executable('ack')
+    Bundle 'mileszs/ack.vim'
+elseif executable('ag')
+    Bundle 'mileszs/ack.vim'
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+
+Bundle 'kien/ctrlp.vim'
+
+" Bundle 'vim-scripts/sessionman.vim'
+
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
+" Bundle 'tpope/vim-fugitive'
+
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+Bundle 'pangloss/vim-javascript'
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
+
+" Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'hail2u/vim-css3-syntax'
+
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-cucumber'
+
+filetype plugin indent on     " required by Vundle!
+
+" =============== General ===============
+
+let mapleader=","
+
+set number                      "Line numbers are good
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set showcmd                     "Show incomplete cmds down the bottom
+set showmode                    "Show current mode down the bottom
+set gcr=a:blinkon0              "Disable cursor blink
+set visualbell                  "No sounds
+set autoread                    "Reload files changed outside vim
+syntax on                       "turn on syntax highlighting
+
+"some stuff to get the mouse going in term
+set mouse=a
+set ttymouse=xterm2
+
+" Make RVM work in Vim.
+set shell=bash
+
+" link .md extension to Markdown syntax
+au BufNewFile,BufRead *.md setlocal ft=markdown
+
+" ================ Search Settings  =================
+
+set incsearch        "Find the next match as we type the search
+set hlsearch         "Hilight searches by default
+set ignorecase       "Ignore case when searching
+" press esc to stop search highlight
+nnoremap <silent> <esc> :noh<return><esc>
+set viminfo='100,f1  "Save up to 100 marks, enable capital marks
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+" ================ Persistent Undo ==================
+
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+
+" ================ Indentation ======================
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set expandtab
+set colorcolumn=80
+
+autocmd FileType ruby setlocal foldmethod=syntax shiftwidth=2 tabstop=2
+autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal foldmethod=indent shiftwidth=4 tabstop=4
+
+filetype plugin on
+filetype indent on
+
+set list listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Display tabs and trailing spaces visually
+
+" ================ Folds ============================
+
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
+" ================ Completion =======================
+
+set wildmode=list:longest
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=*/vendor/rails/**
+set wildignore+=*/vendor/cache/**
+set wildignore+=*/vendor/bundle/**
+set wildignore+=*/bundler_stubs/**
+set wildignore+=*/\.git/**
+set wildignore+=*/\.hg/**
+set wildignore+=*/\.svn/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+
+" ================ Scrolling ========================
+
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+" ================ Commands ========================
+
+"key mapping for window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"Key mapping for textmate-like indentation
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+
+" save & load session in working directory
+map <leader>s :mksession! .session.vim<CR>
+map <leader>l :so .session.vim<CR>
+
+nnoremap <leader>. <c-^>        " Switch between last buffer
+
+" Use numbers to pick the tab you want (like iTerm)
+map <silent> <D-1> :tabn 1<cr>
+map <silent> <D-2> :tabn 2<cr>
+map <silent> <D-3> :tabn 3<cr>
+map <silent> <D-4> :tabn 4<cr>
+map <silent> <D-5> :tabn 5<cr>
+map <silent> <D-6> :tabn 6<cr>
+map <silent> <D-7> :tabn 7<cr>
+map <silent> <D-8> :tabn 8<cr>
+map <silent> <D-9> :tabn 9<cr>
+
+" w!! to write a file as sudo
+" stolen from Steve Losh
+cmap w!! w !sudo tee % >/dev/null
+
+" ================ Appearance ========================
+
+set background=dark
+set linespace=4
+
+if has("gui_running")
+
+  let g:solarized_contrast="high"
+  let g:solarized_visibility="high"
+  colorscheme solarized
+
+  " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
+  " For some reason this doesn't work as a regular set command,
+  " (the numbers don't show up) so I made it a VimEnter event
+  autocmd VimEnter * set guitablabel=%N:\ %t\ %M
+
+  set lines=50
+  set columns=210
+
+  set guifont=Source\ Code\ Pro\ Light:h11
+
+  set guioptions-=r
+  set guioptions-=L
+
+  " Disable the macvim toolbar
+  set guioptions-=T
+  " Disable printing in macvim
+  macmenu File.Print key=<nop>
+
+else
+
+  "dont load csapprox if we no gui support - silences an annoying warning
+  let g:CSApprox_loaded = 1
+
+  let g:solarized_termcolors=256
+  let g:solarized_contrast="high"
+  colorscheme solarized
+
+endif
+
+" ================ Bundle settings ========================
+
+
+" Tcomment
+
+map <D-/> :TComment<CR>
+imap <D-/> <Esc>:TComment<CR>
+
+" NERDTree
+
+map <leader>n <plug>NERDTreeTabsToggle<CR>
+
+let NERDTreeMinimalUI=1
+let NERDTreeDirArrows=1
+let g:NERDTreeWinSize=35
+
+" Auto open nerd tree on startup
+let g:nerdtree_tabs_open_on_gui_startup = 0
+" Focus in the main content window
+let g:nerdtree_tabs_focus_on_files = 1
+" somehow default doesn't work well
+let g:nerdtree_tabs_startup_cd = 0
+
+" Ctrl-P
+
+" Cmd-Shift-P to clear the cache
+nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
+
+" hide initial nerd tree when opening a file
+let g:ctrlp_dont_split = 'NERD_tree_2'
+
+" let g:ctrlp_working_path_mode = 2
+" nnoremap <silent> <D-t> :CtrlP<CR>
+" nnoremap <silent> <D-r> :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$' }
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': 'find %s -type f'
+\ }
