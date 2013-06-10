@@ -31,7 +31,7 @@ Bundle 'jistr/vim-nerdtree-tabs'
 
 Bundle 'kien/ctrlp.vim'
 
-" Bundle 'vim-scripts/sessionman.vim'
+Bundle 'vim-scripts/sessionman.vim'
 
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
@@ -47,8 +47,11 @@ Bundle 'groenewege/vim-less'
 Bundle 'briancollins/vim-jst'
 Bundle 'kchmck/vim-coffee-script'
 
-" Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
+Bundle 'mattn/zencoding-vim'
+Bundle 'tpope/vim-haml'
+Bundle 'slim-template/vim-slim'
 
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
@@ -79,6 +82,7 @@ set shell=bash
 
 " link .md extension to Markdown syntax
 au BufNewFile,BufRead *.md setlocal ft=markdown
+au BufNewFile,BufRead *.slim setlocal ft=slim syntax=slim
 
 " ================ Search Settings  =================
 
@@ -115,14 +119,14 @@ set tabstop=4
 set expandtab
 set colorcolumn=80
 
-autocmd FileType ruby setlocal foldmethod=syntax shiftwidth=2 tabstop=2
-autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal foldmethod=indent shiftwidth=4 tabstop=4
+autocmd FileType ruby,coffe,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
+autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=4 tabstop=4
 
 filetype plugin on
 filetype indent on
 
-set list listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Display tabs and trailing spaces visually
+" Display tabs and trailing spaces visually
+set list listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:¬
 
 " ================ Folds ============================
 
@@ -199,11 +203,11 @@ cmap w!! w !sudo tee % >/dev/null
 
 " ================ Appearance ========================
 
-set background=dark
 set linespace=4
 
 if has("gui_running")
 
+  set background=dark
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
   colorscheme solarized
@@ -226,11 +230,16 @@ if has("gui_running")
   " Disable printing in macvim
   macmenu File.Print key=<nop>
 
+  " Don't highlight SpecialKeys
+  highlight SpecialKey NONE guifg=#657b83
+
 else
 
   "dont load csapprox if we no gui support - silences an annoying warning
   let g:CSApprox_loaded = 1
+  set t_Co=256
 
+  set background=dark
   let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   colorscheme solarized
@@ -282,3 +291,21 @@ let g:ctrlp_user_command = {
     \ },
     \ 'fallback': 'find %s -type f'
 \ }
+
+" Sessionman
+
+set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+nmap <leader>sl :SessionList<CR>
+nmap <leader>ss :SessionSave<CR>
+
+" ctags
+
+" add rails gems
+set tags+=gems.tags
+
+" ctags
+" " Regenerate tags
+map <leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/* `rvm gemdir`/bundler/gems/*<CR><C-M>
+
+" add rails gems
+set tags+=gems.tags
