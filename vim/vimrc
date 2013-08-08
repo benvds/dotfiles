@@ -35,7 +35,11 @@ Bundle 'vim-scripts/sessionman.vim'
 
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
-" Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-fugitive'
+
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/vim-snippets'
 
 if executable('ctags')
     Bundle 'majutsushi/tagbar'
@@ -53,9 +57,18 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 
+Bundle 'vim-ruby/vim-ruby'
+" Bundle 'tsaleh/vim-matchit'
+" Bundle 'kana/vim-textobj-user'
+" Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-cucumber'
+
+Bundle 'bling/vim-airline'
+Bundle 'justincampbell/vim-eighties'
+Bundle 'sjl/gundo.vim'
+Bundle 'mhinz/vim-startify'
 
 filetype plugin indent on     " required by Vundle!
 
@@ -64,6 +77,8 @@ filetype plugin indent on     " required by Vundle!
 let mapleader=","
 
 set number                      "Line numbers are good
+set ruler                       "Show current position in statusline
+set cursorline                  "Highlight the screenline of the cursor
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
@@ -119,8 +134,9 @@ set tabstop=4
 set expandtab
 set colorcolumn=80
 
-autocmd FileType ruby,coffe,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
+autocmd FileType ruby,coffee,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
 autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=4 tabstop=4
+autocmd FileType less setlocal nowrap foldmethod=syntax shiftwidth=4 tabstop=4
 
 filetype plugin on
 filetype indent on
@@ -225,10 +241,13 @@ if has("gui_running")
   set guioptions-=r
   set guioptions-=L
 
-  " Disable the macvim toolbar
-  set guioptions-=T
-  " Disable printing in macvim
-  macmenu File.Print key=<nop>
+  if has("gui_macvim")
+    " Disable the macvim toolbar
+    set guioptions-=T
+    " Disable printing in macvim
+    macmenu &File.Print key=<nop>
+    imap <D-p> <c-p>
+  endif
 
   " Don't highlight SpecialKeys
   highlight SpecialKey NONE guifg=#657b83
@@ -238,13 +257,29 @@ else
   "dont load csapprox if we no gui support - silences an annoying warning
   let g:CSApprox_loaded = 1
   set t_Co=256
+  " let g:solarized_termcolors=256
+  set term=xterm-256color
 
   set background=dark
-  let g:solarized_termcolors=256
   let g:solarized_contrast="high"
   colorscheme solarized
 
 endif
+
+
+" ================ Functions ========================
+
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>rn :call RenameFile()<cr>
+
 
 " ================ Bundle settings ========================
 
@@ -300,12 +335,162 @@ nmap <leader>ss :SessionSave<CR>
 
 " ctags
 
-" add rails gems
-set tags+=gems.tags
-
-" ctags
 " " Regenerate tags
 map <leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/* `rvm gemdir`/bundler/gems/*<CR><C-M>
 
+" matchit, textobj & rubyblock
+runtime macros/matchit.vim
+
 " add rails gems
 set tags+=gems.tags
+
+" neocomplcache
+
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_auto_delimiter = 1
+let g:neocomplcache_max_list = 15
+let g:neocomplcache_force_overwrite_completefunc = 1
+
+" SuperTab like snippets behavior.
+imap <silent><expr><TAB> neosnippet#expandable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+            \ "\<C-e>" : "\<TAB>")
+smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns._ = '\h\w*'
+
+" Plugin key-mappings.
+
+" These two lines conflict with the default digraph mapping of <C-K>
+" If you prefer that functionality, add
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
+inoremap <expr><CR> neocomplcache#complete_common_string()
+
+" <TAB>: completion.
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+
+" <CR>: close popup
+" <s-CR>: close popup and save indent.
+" inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
+" inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y> neocomplcache#close_popup()
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+
+" Use honza's snippets.
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+" Enable neosnippet snipmate compatibility mode
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+" Disable the neosnippet preview candidate window
+" When enabled, there can be too much visual noise
+" especially when splits are used.
+set completeopt-=preview
+
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+
+" Airline
+set laststatus=2 " always show statusline
+let g:airline_theme='solarized'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_enable_branch=1
+
+" zen coding
+function! s:zen_html_tab()
+  let line = getline('.')
+  if match(line, '<.*>') >= 0
+    return "\<c-y>n"
+  endif
+  return "\<c-y>,"
+endfunction
+autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
+
+
+" Gundo
+nmap ,u :GundoToggle<CR>
+" open on the right so as not to compete with the nerdtree
+let g:gundo_right = 1 
+" a little wider for wider screens
+let g:gundo_width = 60
+
+" Startify
+let g:startify_session_dir = '~/.vim/sessions'
