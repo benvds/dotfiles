@@ -64,11 +64,14 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-cucumber'
+Bundle 'mustache/vim-mustache-handlebars'
 
 Bundle 'bling/vim-airline'
-Bundle 'justincampbell/vim-eighties'
+" Bundle 'justincampbell/vim-eighties' " errors when resetting with git
 Bundle 'sjl/gundo.vim'
 Bundle 'mhinz/vim-startify'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'editorconfig/editorconfig-vim'
 
 filetype plugin indent on     " required by Vundle!
 
@@ -96,8 +99,10 @@ set ttymouse=xterm2
 set shell=bash
 
 " link .md extension to Markdown syntax
-au BufNewFile,BufRead *.md setlocal ft=markdown
+au BufNewFile,BufRead *.md setlocal ft=markdown sw=2 ts=2
 au BufNewFile,BufRead *.slim setlocal ft=slim syntax=slim
+
+let $PAGER=''
 
 " ================ Search Settings  =================
 
@@ -135,7 +140,7 @@ set expandtab
 set colorcolumn=80
 
 autocmd FileType ruby,coffee,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
-autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=4 tabstop=4
+" autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=4 tabstop=4
 autocmd FileType less setlocal nowrap foldmethod=syntax shiftwidth=4 tabstop=4
 
 filetype plugin on
@@ -162,7 +167,6 @@ set wildignore+=*/vendor/rails/**
 set wildignore+=*/vendor/cache/**
 set wildignore+=*/vendor/bundle/**
 set wildignore+=*/bundler_stubs/**
-set wildignore+=*/\.git/**
 set wildignore+=*/\.hg/**
 set wildignore+=*/\.svn/**
 set wildignore+=*.gem
@@ -233,8 +237,8 @@ if has("gui_running")
   " (the numbers don't show up) so I made it a VimEnter event
   autocmd VimEnter * set guitablabel=%N:\ %t\ %M
 
-  set lines=50
-  set columns=210
+  set lines=44
+  set columns=172
 
   set guifont=Source\ Code\ Pro\ Light:h11
 
@@ -245,7 +249,7 @@ if has("gui_running")
     " Disable the macvim toolbar
     set guioptions-=T
     " Disable printing in macvim
-    macmenu &File.Print key=<nop>
+    macmenu File.Print key=<nop>
     imap <D-p> <c-p>
   endif
 
@@ -374,6 +378,12 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns._ = '\h\w*'
 
+if !(exists('g:neocomplcache_same_filetype_lists'))
+   let g:neocomplcache_same_filetype_lists = {}
+endif
+let g:neocomplcache_same_filetype_lists.erb = 'html,eruby,ruby'
+let g:neocomplcache_same_filetype_lists.eruby = 'html,erb,ruby'
+
 " Plugin key-mappings.
 
 " These two lines conflict with the default digraph mapping of <C-K>
@@ -494,3 +504,7 @@ let g:gundo_width = 60
 
 " Startify
 let g:startify_session_dir = '~/.vim/sessions'
+
+" Fugutive
+" auto clean fugutive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
