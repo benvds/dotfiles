@@ -93,6 +93,10 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 syntax on                       "turn on syntax highlighting
 
+" move up/down by visual line instead of text line (for line wraps)
+noremap j gj
+noremap k gk
+
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
