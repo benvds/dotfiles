@@ -39,8 +39,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 export ARCHFLAGS="-arch x86_64"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 export EDITOR="mvim -f"
 
 # vim als postgres default editor
@@ -54,31 +52,23 @@ export PSQL_EDITOR='vim +"set syntax=sql" '
 
 eval "$(fasd --init auto)"
 
-[[ -s /Users/benvds/.nvm/nvm.sh ]] && . /Users/benvds/.nvm/nvm.sh
+# ruby switching
+if [[ -e /usr/local/share/chruby ]]; then
+  # Load chruby
+  source '/usr/local/share/chruby/chruby.sh'
 
-# https://gist.github.com/SlexAxton/4989674
-# brew install ffmpeg
-# brew tap phinze/homebrew-cask
-# brew install brew-cask
-# brew cask install x-quartz
-# open /usr/local/Cellar/x-quartz/2.7.4/XQuartz.pkg
-# # click through the stuff
-# brew install gifsicle
-# brew install imagemagick
-#  
-# # I had a weird problem with Convert/imagemagick where I had to do:
-# ln -s /usr/local/Cellar/libtool/2.4.2/lib/libltdl.7.dylib libltdl.7.dylib
-# # But hopefully you don't have to
-gifify() {
-  if [[ -n "$1" ]]; then
-    if [[ $2 == '--good' ]]; then
-      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
-      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
-      rm out-static*.png
-    else
-      ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
-    fi
-  else
-    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
+  # Automatically switch rubies
+  source '/usr/local/share/chruby/auto.sh'
+
+  # Set a default ruby if a .ruby-version file exists in the home dir
+  if [[ -f ~/.ruby-version ]]; then
+    chruby $(cat ~/.ruby-version)
   fi
-}
+fi
+
+if [[ -e /usr/local/bin/archey ]]; then
+  archey -c
+fi
+
+# node switching
+[[ -s /Users/benvds/.nvm/nvm.sh ]] && . /Users/benvds/.nvm/nvm.sh

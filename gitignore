@@ -26,7 +26,6 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 .rvmrc
-bin/*
 log/*
 log/**
 vendor/gems/*

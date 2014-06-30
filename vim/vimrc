@@ -13,18 +13,9 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'godlygeek/csapprox'
 
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 Bundle 'tomtom/tcomment_vim'
-
-if executable('ack-grep')
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-    Bundle 'mileszs/ack.vim'
-elseif executable('ack')
-    Bundle 'mileszs/ack.vim'
-elseif executable('ag')
-    Bundle 'mileszs/ack.vim'
-    let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
@@ -32,10 +23,13 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 
 Bundle 'vim-scripts/sessionman.vim'
+Bundle 'vim-scripts/YankRing.vim'
 
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
+Bundle 'godlygeek/tabular'
 
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
@@ -46,6 +40,7 @@ if executable('ctags')
 endif
 
 Bundle 'pangloss/vim-javascript'
+Bundle 'marijnh/tern_for_vim'
 Bundle 'leshill/vim-json'
 Bundle 'groenewege/vim-less'
 Bundle 'briancollins/vim-jst'
@@ -53,27 +48,34 @@ Bundle 'kchmck/vim-coffee-script'
 
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
-Bundle 'mattn/zencoding-vim'
+" Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 
+Bundle 'bkad/CamelCaseMotion'
 Bundle 'vim-ruby/vim-ruby'
-" Bundle 'tsaleh/vim-matchit'
-" Bundle 'kana/vim-textobj-user'
-" Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'michaeljsmith/vim-indent-object'
+" Bundle 'vim-scripts/matchit.zip'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-cucumber'
 Bundle 'mustache/vim-mustache-handlebars'
 
 Bundle 'bling/vim-airline'
-" Bundle 'justincampbell/vim-eighties' " errors when resetting with git
+" errors when resetting with git
+Bundle 'justincampbell/vim-eighties'
 Bundle 'sjl/gundo.vim'
 Bundle 'mhinz/vim-startify'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'editorconfig/editorconfig-vim'
 
+Bundle 'junegunn/goyo.vim'
+Bundle 'henrik/vim-yaml-flattener'
+
 filetype plugin indent on     " required by Vundle!
+" runtime macros/matchit.vim
 
 " =============== General ===============
 
@@ -95,8 +97,7 @@ syntax on                       "turn on syntax highlighting
 set mouse=a
 set ttymouse=xterm2
 
-" Make RVM work in Vim.
-set shell=bash
+set shell=/bin/sh
 
 " link .md extension to Markdown syntax
 au BufNewFile,BufRead *.md setlocal ft=markdown sw=2 ts=2
@@ -199,7 +200,6 @@ vmap <D-]> >gv
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-
 " save & load session in working directory
 map <leader>s :mksession! .session.vim<CR>
 map <leader>l :so .session.vim<CR>
@@ -227,7 +227,6 @@ set linespace=4
 
 if has("gui_running")
 
-  set background=dark
   let g:solarized_contrast="high"
   let g:solarized_visibility="high"
   colorscheme solarized
@@ -240,7 +239,9 @@ if has("gui_running")
   set lines=44
   set columns=172
 
-  set guifont=Source\ Code\ Pro\ Light:h11
+  " set guifont=Source\ Code\ Pro\ Light:h12
+  set guifont=Source\ Code\ Pro:h12
+  " set guifont=Source\ Code\ Pro:h13
 
   set guioptions-=r
   set guioptions-=L
@@ -264,12 +265,29 @@ else
   " let g:solarized_termcolors=256
   set term=xterm-256color
 
-  set background=dark
   let g:solarized_contrast="high"
   colorscheme solarized
 
 endif
 
+set background=dark
+" set background=light
+
+" ============ The Silver Searcher ==================
+
+" http://robots.thoughtbot.com/faster-grepping-in-vim
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " bind K to grep word under cursor
+    nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+    " bind \ (backward slash) to grep shortcut
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+    nnoremap \ :Ag<SPACE>
+endif
 
 " ================ Functions ========================
 
@@ -318,7 +336,7 @@ let g:ctrlp_dont_split = 'NERD_tree_2'
 
 " let g:ctrlp_working_path_mode = 2
 " nnoremap <silent> <D-t> :CtrlP<CR>
-" nnoremap <silent> <D-r> :CtrlPMRU<CR>
+nnoremap <silent> <D-r> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
     \ 'file': '\.exe$\|\.so$\|\.dll$' }
@@ -336,11 +354,6 @@ let g:ctrlp_user_command = {
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 nmap <leader>sl :SessionList<CR>
 nmap <leader>ss :SessionSave<CR>
-
-" ctags
-
-" " Regenerate tags
-map <leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/* `rvm gemdir`/bundler/gems/*<CR><C-M>
 
 " matchit, textobj & rubyblock
 runtime macros/matchit.vim
@@ -432,6 +445,9 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 " Enable neosnippet snipmate compatibility mode
 let g:neosnippet#enable_snipmate_compatibility = 1
 
+" https://github.com/spf13/spf13-vim/issues/539
+let g:neosnippet#disable_runtime_snippets = { "_": 1, }
+
 " For snippet_complete marker.
 if has('conceal')
     set conceallevel=2 concealcursor=i
@@ -484,17 +500,6 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_enable_branch=1
 
-" zen coding
-function! s:zen_html_tab()
-  let line = getline('.')
-  if match(line, '<.*>') >= 0
-    return "\<c-y>n"
-  endif
-  return "\<c-y>,"
-endfunction
-autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
-
-
 " Gundo
 nmap ,u :GundoToggle<CR>
 " open on the right so as not to compete with the nerdtree
@@ -508,3 +513,20 @@ let g:startify_session_dir = '~/.vim/sessions'
 " Fugutive
 " auto clean fugutive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" Camelcasemotion
+" Replace the default 'w', 'b' and 'e' mappings instead of defining additional
+" mappings ',w', ',b' and ',e'
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+" Replace default 'iw' text-object and define 'ib' and 'ie' motions
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> ib <Plug>CamelCaseMotion_ib
+xmap <silent> ib <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
+xmap <silent> ie <Plug>CamelCaseMotion_ie

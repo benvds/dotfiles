@@ -115,3 +115,6 @@
 	cmd = ~/.dotfiles/scripts/default-difftool.sh $LOCAL $REMOTE
 [mergetool "default-difftool"]
 	cmd = ~/.dotfiles/scripts/default-difftool.sh $LOCAL $REMOTE
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
