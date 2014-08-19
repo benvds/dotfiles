@@ -3,8 +3,9 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.dotfiles/vim/bundle/vundle/
+set rtp+=~/.dotfiles/vim/bundle/Vundle.vim/
 call vundle#rc()
+Bundle 'gmarik/Vundle.vim'
 Bundle 'gmarik/vundle'
 
 " =============== Bundles ===============
@@ -41,7 +42,7 @@ if executable('ctags')
 endif
 
 Bundle 'pangloss/vim-javascript'
-Bundle 'marijnh/tern_for_vim'
+" Bundle 'marijnh/tern_for_vim'
 Bundle 'leshill/vim-json'
 Bundle 'groenewege/vim-less'
 Bundle 'briancollins/vim-jst'
@@ -386,7 +387,7 @@ let g:NERDTreeWinSize=35
 " Auto open nerd tree on startup
 let g:nerdtree_tabs_open_on_gui_startup = 0
 " Focus in the main content window
-let g:nerdtree_tabs_focus_on_files = 1
+" let g:nerdtree_tabs_focus_on_files = 1
 " somehow default doesn't work well
 let g:nerdtree_tabs_startup_cd = 0
 
@@ -396,7 +397,8 @@ let g:nerdtree_tabs_startup_cd = 0
 nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
 
 " hide initial nerd tree when opening a file
-let g:ctrlp_dont_split = 'NERD_tree_2'
+" let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_dont_split = 'NERD'
 
 " let g:ctrlp_working_path_mode = 2
 " nnoremap <silent> <D-t> :CtrlP<CR>

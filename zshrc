@@ -34,6 +34,7 @@ alias bower="noglob bower"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+. /Users/benvds/.dotfiles/z/z.sh
 
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
@@ -49,8 +50,6 @@ export PSQL_EDITOR='vim +"set syntax=sql" '
 #    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
 #    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
 #    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-
-eval "$(fasd --init auto)"
 
 # ruby switching
 if [[ -e /usr/local/share/chruby ]]; then
