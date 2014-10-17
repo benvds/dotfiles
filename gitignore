@@ -33,3 +33,8 @@ vendor/gems/**
 vendor/ruby/*
 vendor/ruby/**
 bundler_stubs/
+
+.sass-cache
+
+bower_components
+node_modules

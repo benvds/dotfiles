@@ -75,6 +75,8 @@ Bundle 'vim-scripts/ZoomWin'
 Bundle 'junegunn/goyo.vim'
 Bundle 'henrik/vim-yaml-flattener'
 
+Bundle 'DirDiff.vim'
+
 filetype plugin indent on     " required by Vundle!
 " runtime macros/matchit.vim
 

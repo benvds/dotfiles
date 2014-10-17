@@ -71,3 +71,11 @@ fi
 
 # node switching
 [[ -s /Users/benvds/.nvm/nvm.sh ]] && . /Users/benvds/.nvm/nvm.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+### QT 5
+export PATH=/usr/local/opt/qt5/bin:$PATH
+export LDFLAGS="-L/usr/local/opt/qt5/lib"
+export CPPFLAGS="-I/usr/local/opt/qt5/include"
