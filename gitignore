@@ -32,6 +32,8 @@ vendor/gems/*
 vendor/gems/**
 vendor/ruby/*
 vendor/ruby/**
+vendor/bundle/*
+vendor/bundle/**
 bundler_stubs/
 
 .sass-cache

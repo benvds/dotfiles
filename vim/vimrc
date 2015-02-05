@@ -61,9 +61,17 @@ Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
+" Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-cucumber'
 Bundle 'mustache/vim-mustache-handlebars'
+
+" Clojure
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+Bundle 'guns/vim-clojure-highlight'
+
+Bundle 'elixir-lang/vim-elixir'
 
 Bundle 'bling/vim-airline'
 Bundle 'sjl/gundo.vim'
@@ -153,7 +161,8 @@ filetype plugin indent on     " required by Vundle!
 
 " =============== General ===============
 
-let mapleader=","
+" let mapleader=","
+let mapleader="\<Space>"
 
 set number                      "Line numbers are good
 set ruler                       "Show current position in statusline
@@ -213,6 +222,7 @@ set undofile
 set autoindent
 set smartindent
 set smarttab
+set smartcase
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
@@ -285,7 +295,9 @@ map <leader>l :so .session.vim<CR>
 
 nnoremap <leader>. <c-^>        " Switch between last buffer
 
-" Use numbers to pick the tab you want (like iTerm)
+" mac
+map <D-S-]> gt
+map <D-S-[> gT
 map <silent> <D-1> :tabn 1<cr>
 map <silent> <D-2> :tabn 2<cr>
 map <silent> <D-3> :tabn 3<cr>
@@ -295,6 +307,9 @@ map <silent> <D-6> :tabn 6<cr>
 map <silent> <D-7> :tabn 7<cr>
 map <silent> <D-8> :tabn 8<cr>
 map <silent> <D-9> :tabn 9<cr>
+" linux
+map <C-S-]> gt
+map <C-S-[> gT
 
 " w!! to write a file as sudo
 " stolen from Steve Losh
@@ -331,6 +346,7 @@ if has("gui_running")
     " Disable printing in macvim
     macmenu File.Print key=<nop>
     imap <D-p> <c-p>
+    set transparency=1
   endif
 
   " Don't highlight SpecialKeys

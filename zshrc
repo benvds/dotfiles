@@ -70,12 +70,21 @@ if [[ -e /usr/local/bin/archey ]]; then
 fi
 
 # node switching
-[[ -s /Users/benvds/.nvm/nvm.sh ]] && . /Users/benvds/.nvm/nvm.sh
+[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
 ### QT 5
-export PATH=/usr/local/opt/qt5/bin:$PATH
-export LDFLAGS="-L/usr/local/opt/qt5/lib"
-export CPPFLAGS="-I/usr/local/opt/qt5/include"
+# export PATH=/usr/local/opt/qt5/bin:$PATH
+# export LDFLAGS="-L/usr/local/opt/qt5/lib"
+# export CPPFLAGS="-I/usr/local/opt/qt5/include"
+
+### Oracle
+# export DYLD_LIBRARY_PATH="/usr/local/oracle"
+# export TNS_ADMIN="/usr/local/oracle/instantclient_11_2/admin"
+# export SQLPATH="/usr/local/oracle"
+# export ORACLE_HOME="/usr/local/oracle"
+# export NLS_LANG="AMERICAN_AMERICA.UTF8"
+# export PATH="$PATH:/usr/local/bin"
+# export PATH="$PATH:/usr/local/oracle"
