@@ -3,6 +3,18 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
+fancy-ctrl-z () {
+    if [[ $#BUFFER -eq 0 ]]; then
+        BUFFER="fg"
+        zle accept-line
+    else
+        zle push-input
+        zle clear-screen
+    fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 # Aliases
 alias pg_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pg_stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
@@ -12,6 +24,7 @@ alias be="bundle exec"
 alias hk="heroku"
 alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
 alias bower="noglob bower"
+alias vim='/opt/homebrew-cask/Caskroom/macvim/7.4-73/MacVim-snapshot-73/MacVim.app/Contents/MacOS/Vim'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
