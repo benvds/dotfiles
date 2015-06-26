@@ -3,13 +3,14 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.dotfiles/vim/bundle/Vundle.vim/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 Bundle 'gmarik/Vundle.vim'
 Bundle 'gmarik/vundle'
 
 " =============== Bundles ===============
 
+Bundle 'vim-scripts/matchit.zip'
 Bundle 'tomtom/tlib_vim'
 Bundle 'godlygeek/csapprox'
 
@@ -18,8 +19,10 @@ Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 Bundle 'tomtom/tcomment_vim'
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+" Bundle 'scrooloose/nerdtree'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler.vim'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
@@ -50,18 +53,16 @@ Bundle 'kchmck/vim-coffee-script'
 
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
-" Bundle 'mattn/emmet-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 
-" Bundle 'bkad/CamelCaseMotion'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-endwise'
 Bundle 'michaeljsmith/vim-indent-object'
-" Bundle 'vim-scripts/matchit.zip'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
-" Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-cucumber'
 Bundle 'mustache/vim-mustache-handlebars'
 
@@ -80,84 +81,13 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'editorconfig/editorconfig-vim'
 
 Bundle 'vim-scripts/ZoomWin'
-Bundle 'junegunn/goyo.vim'
 Bundle 'henrik/vim-yaml-flattener'
 
 Bundle 'DirDiff.vim'
 
+Bundle 'christoomey/vim-tmux-navigator'
+
 filetype plugin indent on     " required by Vundle!
-" runtime macros/matchit.vim
-
-" =============== Scripts ===============
-
-" from: https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
-
-" function! MapCR()
-"   nnoremap <cr> :call RunTestFile()<cr>
-" endfunction
-" call MapCR()
-" nnoremap <leader>T :call RunNearestTest()<cr>
-" nnoremap <leader>a :call RunTests('')<cr>
-" nnoremap <leader>c :w\|:!script/features<cr>
-" nnoremap <leader>w :w\|:!script/features --profile wip<cr>
-" 
-" function! RunTestFile(...)
-"     if a:0
-"         let command_suffix = a:1
-"     else
-"         let command_suffix = ""
-"     endif
-" 
-" " Run the tests for the previously-marked file.
-"     let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
-"     if in_test_file
-"         call SetTestFile()
-"     elseif !exists("t:grb_test_file")
-"         return
-"     end
-"     call RunTests(t:grb_test_file . command_suffix)
-" endfunction
-" 
-" function! RunNearestTest()
-"     let spec_line_number = line('.')
-"     call RunTestFile(":" . spec_line_number)
-" endfunction
-" 
-" function! SetTestFile()
-" " Set the spec file that tests will be run for.
-"     let t:grb_test_file=@%
-" endfunction
-" 
-" function! RunTests(filename)
-" " Write the file and run tests for the given filename
-"     if expand("%") != ""
-"       :w
-"     end
-"     if match(a:filename, '\.feature$') != -1
-"         exec ":!script/features " . a:filename
-"     else
-" " First choice: project-specific test script
-"         if filereadable("script/test")
-"             exec ":!script/test " . a:filename
-" " Fall back to the .test-commands pipe if available, assuming someone
-" " is reading the other side and running the commands
-"         elseif filewritable(".test-commands")
-"           let cmd = 'rspec --color --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter --out tmp/quickfix'
-"           exec ":!echo " . cmd . " " . a:filename . " > .test-commands"
-" 
-" " Write an empty string to block until the command completes
-"           sleep 100m " milliseconds
-"           :!echo > .test-commands
-"           redraw!
-" " Fall back to a blocking test run with Bundler
-"         elseif filereadable("Gemfile")
-"             exec ":!bundle exec rspec --color " . a:filename
-" " Fall back to a normal blocking test run
-"         else
-"             exec ":!rspec --color " . a:filename
-"         end
-"     end
-" endfunction
 
 " =============== General ===============
 
@@ -230,7 +160,7 @@ set expandtab
 set colorcolumn=80
 
 autocmd FileType ruby,coffee,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
-" autocmd FileType html,xhtml,xml,eruby setlocal nowrap noexpandtab foldmethod=indent shiftwidth=4 tabstop=4
+autocmd FileType html,xhtml,xml,eruby setlocal nowrap foldmethod=indent shiftwidth=4 tabstop=4
 autocmd FileType less setlocal nowrap foldmethod=syntax shiftwidth=4 tabstop=4
 
 filetype plugin on
@@ -295,6 +225,14 @@ map <leader>l :so .session.vim<CR>
 
 nnoremap <leader>. <c-^>        " Switch between last buffer
 
+" copy & past system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 " mac
 map <D-S-]> gt
 map <D-S-[> gT
@@ -307,6 +245,7 @@ map <silent> <D-6> :tabn 6<cr>
 map <silent> <D-7> :tabn 7<cr>
 map <silent> <D-8> :tabn 8<cr>
 map <silent> <D-9> :tabn 9<cr>
+
 " linux
 map <C-S-]> gt
 map <C-S-[> gT
@@ -388,26 +327,20 @@ endif
 
 " ================ Bundle settings ========================
 
-
 " Tcomment
 
 map <D-/> :TComment<CR>
 imap <D-/> <Esc>:TComment<CR>
 
-" NERDTree
+" NERDTree sucks
 
-map <leader>n <plug>NERDTreeTabsToggle<CR>
+" let NERDTreeMinimalUI=1
+" let NERDTreeDirArrows=1
+" let g:NERDTreeWinSize=35
 
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-let g:NERDTreeWinSize=35
+" VimFiler
 
-" Auto open nerd tree on startup
-let g:nerdtree_tabs_open_on_gui_startup = 0
-" Focus in the main content window
-" let g:nerdtree_tabs_focus_on_files = 1
-" somehow default doesn't work well
-let g:nerdtree_tabs_startup_cd = 0
+let g:vimfiler_as_default_explorer = 1
 
 " Ctrl-P
 
@@ -420,7 +353,7 @@ let g:ctrlp_dont_split = 'NERD'
 
 " let g:ctrlp_working_path_mode = 2
 " nnoremap <silent> <D-t> :CtrlP<CR>
-nnoremap <silent> <D-r> :CtrlPMRU<CR>
+nnoremap <silent> <C-b> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
     \ 'file': '\.exe$\|\.so$\|\.dll$' }
@@ -492,16 +425,6 @@ inoremap <expr><C-g> neocomplcache#undo_completion()
 inoremap <expr><C-l> neocomplcache#complete_common_string()
 inoremap <expr><CR> neocomplcache#complete_common_string()
 
-" <TAB>: completion.
-" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
-" <CR>: close popup
-" <s-CR>: close popup and save indent.
-" inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
-" inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
-" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplcache#close_popup()
 
@@ -517,6 +440,7 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
 endif
+
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -570,19 +494,15 @@ inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
 
 " Airline
+
 set laststatus=2 " always show statusline
 let g:airline_theme='solarized'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_enable_branch=1
+let g:airline_extensions = ['branch']
+let g:airline#extensions#branch#enabled = 1
 
 " Gundo
 nmap ,u :GundoToggle<CR>
@@ -597,20 +517,3 @@ let g:startify_session_dir = '~/.vim/sessions'
 " Fugutive
 " auto clean fugutive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
-
-" " Camelcasemotion
-" " Replace the default 'w', 'b' and 'e' mappings instead of defining additional
-" " mappings ',w', ',b' and ',e'
-" map <silent> w <Plug>CamelCaseMotion_w
-" map <silent> b <Plug>CamelCaseMotion_b
-" map <silent> e <Plug>CamelCaseMotion_e
-" sunmap w
-" sunmap b
-" sunmap e
-" " Replace default 'iw' text-object and define 'ib' and 'ie' motions
-" omap <silent> iw <Plug>CamelCaseMotion_iw
-" xmap <silent> iw <Plug>CamelCaseMotion_iw
-" omap <silent> ib <Plug>CamelCaseMotion_ib
-" xmap <silent> ib <Plug>CamelCaseMotion_ib
-" omap <silent> ie <Plug>CamelCaseMotion_ie
-" xmap <silent> ie <Plug>CamelCaseMotion_ie
