@@ -47,7 +47,8 @@ alias vim='/opt/homebrew-cask/Caskroom/macvim/7.4-73/MacVim-snapshot-73/MacVim.a
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-. /Users/benvds/.dotfiles/z/z.sh
+
+. ~/.dotfiles/z/z.sh
 
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
