@@ -23,6 +23,7 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimfiler.vim'
 
+Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 
 Bundle 'vim-scripts/sessionman.vim'
@@ -333,49 +334,132 @@ imap <D-/> <Esc>:TComment<CR>
 
 let g:vimfiler_as_default_explorer = 1
 
+" Ctrl-P
+
+" Cmd-Shift-P to clear the cache
+nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
+
+" hide initial nerd tree when opening a file
+" let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_dont_split = 'NERD'
+
+" let g:ctrlp_working_path_mode = 2
+" nnoremap <silent> <D-t> :CtrlP<CR>
+nnoremap <silent> <C-b> :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$' }
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': 'find %s -type f'
+\ }
+
 " Unite
 
-let g:unite_source_history_yank_enable = 1
-let g:unite_data_directory='~/.vim/.cache/unite'
-let g:unite_source_rec_max_cache_files=50000
-let g:unite_enable_start_insert = 1
-
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-      \ 'ignore_pattern', join([
-      \ '\.git/',
-      \ '\.hg/',
-      \ 'node_modules/',
-      \ 'vendor/',
-      \ ], '\|'))
-
-" fuzzy matcher and sort everything
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-
-" nnoremap <leader>g :Unite grep:.<cr>
-
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" old habits die hard
-nnoremap <C-P> :Unite -no-split -buffer-name=files buffer file_rec/async:!<cr>
-
-autocmd FileType unite call s:unite_settings()
-
-function! s:unite_settings()
-  let b:SuperTabDisabled=1
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  imap <silent><buffer><expr> <C-x> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-endfunction
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_data_directory='~/.vim/.cache/unite'
+" let g:unite_source_rec_max_cache_files=50000
+" let g:unite_enable_start_insert = 1
+"
+" " call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+" "       \ 'ignore_pattern', join([
+" "       \ '\.git/',
+" "       \ '\.hg/',
+" "       \ 'node_modules/',
+" "       \ 'vendor/',
+" "       \ ], '\|'))
+"
+" " fuzzy matcher and sort everything
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
+"
+" " nnoremap <leader>g :Unite grep:.<cr>
+"
+" nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   file_rec/async:!<cr>
+" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   file<cr>
+" nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     file_mru<cr>
+" nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline outline<cr>
+" nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+"
+" " old habits die hard
+" nnoremap <C-P> :Unite -no-split -buffer-name=files buffer file_rec/git<cr>
+"
+" autocmd FileType unite call s:unite_settings()
+"
+" function! s:unite_settings()
+"   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+"   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+"   imap <silent><buffer><expr> <C-x> unite#do_action('split')
+"   imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+"   imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+"
+"   nmap <buffer> <ESC> <Plug>(unite_exit)
+" endfunction
+"
+" if executable('ag')
+"   let g:unite_source_grep_command='ag'
+"   let g:unite_source_grep_default_opts =
+"         \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
+"         \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
+"         \ '--ignore ''**/*.pyc'''
+"   let g:unite_source_grep_recursive_opt=''
+"   let g:unite_source_grep_search_word_highlight = 1
+"   " let g:unite_source_file_async_command =
+"   "           \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+"   " https://github.com/ggreer/the_silver_searcher
+"   " Use ag in unite grep source.
+"   let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden ' .
+"         \ '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
+"         \ '--ignore ''**/*.pyc'' -g ""'
+"   let g:unite_source_grep_command = 'ag'
+" elseif executable('ack-grep')
+"   let g:unite_source_grep_command = 'ack-grep'
+"   " Match whole word only. This might/might not be a good idea
+"   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+"   "let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+"   let g:unite_source_grep_default_opts .= '--exclude ''\.(git|svn|hg|bzr)'''
+"   let g:unite_source_grep_recursive_opt = ''
+" elseif executable('ack')
+"   " let g:unite_source_rec_async_command = 'ack -f --nofilter'
+"   let g:unite_source_grep_command = 'ack'
+"   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+"   let g:unite_source_grep_default_opts .= '--exclude ''\.(git|svn|hg|bzr)'''
+"   let g:unite_source_grep_recursive_opt = ''
+" endif
+"
+" call unite#custom#source('file_rec/async,file_rec/git', 'ignore_globs', [])
+"
+" call unite#custom#source('file_rec,file_rec/async,file_rec/git',
+"       \ 'max_candidates', 1000)
+" "# Q: I want the strength of the match to overpower the order in which I list
+" " sources.
+" call unite#custom#profile('files', 'filters', 'sorter_rank')
+"
+" call unite#custom#source(
+"       \ 'buffer,file_rec', 'matchers',
+"       \ ['converter_relative_word', 'matcher_fuzzy',
+"       \  'matcher_project_ignore_files'])
+" call unite#custom#source('file_rec/async,file_rec/git', 'matchers', 
+"       \  [ 'converter_relative_word', 'matcher_default' ])
+" call unite#custom#source(
+"       \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
+"       \ ['converter_file_directory'])
+" "      \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
+" call unite#custom#source(
+"       \ 'file_rec,file_rec/async', 'required_pattern_length',
+"       \ 1)
+"
+" " https://github.com/Shougo/unite.vim/issues/467#issuecomment-54888841
+" call unite#custom#source('file_rec', 'sorters', 'sorter_length')
+"
+" " Map space to the prefix for Unite
+" nnoremap [unite] <Nop>
+" nmap <space> [unite]
 
 " Sessionman
 
