@@ -2,6 +2,7 @@
 ZSH=$HOME/.dotfiles/oh-my-zsh
 
 ZSH_THEME="robbyrussell"
+DISABLE_AUTO_UPDATE=true
 
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then

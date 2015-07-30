@@ -44,7 +44,8 @@ if executable('ctags')
     Bundle 'majutsushi/tagbar'
 endif
 
-Bundle 'pangloss/vim-javascript'
+" Bundle 'pangloss/vim-javascript'
+Bundle 'othree/yajs.vim'
 " Bundle 'marijnh/tern_for_vim'
 Bundle 'leshill/vim-json'
 Bundle 'groenewege/vim-less'
@@ -86,6 +87,11 @@ Bundle 'henrik/vim-yaml-flattener'
 Bundle 'DirDiff.vim'
 
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'janko-m/vim-test'
+Bundle 'wincent/ferret'
+Bundle 'wincent/terminus'
+Bundle 'zefei/vim-colortuner'
+Bundle 'NLKNguyen/papercolor-theme'
 
 filetype plugin indent on     " required by Vundle!
 
@@ -234,8 +240,9 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 " mac
-map <D-S-]> gt
-map <D-S-[> gT
+noremap <S-l> gt
+noremap <S-h> gT
+
 map <silent> <D-1> :tabn 1<cr>
 map <silent> <D-2> :tabn 2<cr>
 map <silent> <D-3> :tabn 3<cr>
@@ -272,8 +279,8 @@ if has("gui_running")
   set lines=44
   set columns=172
 
-  " set guifont=Source\ Code\ Pro\ Light:h12
-  set guifont=Source\ Code\ Pro:h12
+  set guifont=Source\ Code\ Pro\ Light:h12
+  " set guifont=Source\ Code\ Pro:h12
   " set guifont=Source\ Code\ Pro:h13
 
   set guioptions-=r
