@@ -14,48 +14,43 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'godlygeek/csapprox'
 
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 Bundle 'tomtom/tcomment_vim'
 
 Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/neomru.vim'
+" Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimfiler.vim'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 
-Bundle 'vim-scripts/sessionman.vim'
-
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
-Bundle 'godlygeek/tabular'
+" Bundle 'godlygeek/tabular'
 
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'honza/vim-snippets'
 
-if executable('ctags')
-    Bundle 'szw/vim-tags'
-    Bundle 'majutsushi/tagbar'
-endif
+" if executable('ctags')
+"     Bundle 'szw/vim-tags'
+"     Bundle 'majutsushi/tagbar'
+" endif
 
-" Bundle 'pangloss/vim-javascript'
 Bundle 'othree/yajs.vim'
-" Bundle 'marijnh/tern_for_vim'
 Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
+" Bundle 'groenewege/vim-less'
+" Bundle 'briancollins/vim-jst'
+" Bundle 'kchmck/vim-coffee-script'
 
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-haml'
-Bundle 'slim-template/vim-slim'
+" Bundle 'tpope/vim-haml'
+" Bundle 'slim-template/vim-slim'
 
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
@@ -64,13 +59,13 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-cucumber'
-Bundle 'mustache/vim-mustache-handlebars'
+" Bundle 'mustache/vim-mustache-handlebars'
 
 " Clojure
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace'
-Bundle 'guns/vim-clojure-highlight'
+" Bundle 'kien/rainbow_parentheses.vim'
+" Bundle 'guns/vim-clojure-static'
+" Bundle 'tpope/vim-fireplace'
+" Bundle 'guns/vim-clojure-highlight'
 
 Bundle 'elixir-lang/vim-elixir'
 
@@ -81,16 +76,14 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'editorconfig/editorconfig-vim'
 
 Bundle 'vim-scripts/ZoomWin'
-Bundle 'henrik/vim-yaml-flattener'
+" Bundle 'henrik/vim-yaml-flattener'
 
-Bundle 'DirDiff.vim'
+" Bundle 'DirDiff.vim'
 
-Bundle 'christoomey/vim-tmux-navigator'
+" Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'janko-m/vim-test'
 Bundle 'wincent/ferret'
 Bundle 'wincent/terminus'
-Bundle 'zefei/vim-colortuner'
-Bundle 'NLKNguyen/papercolor-theme'
 
 filetype plugin indent on     " required by Vundle!
 
@@ -239,8 +232,8 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 " mac
-noremap <S-l> gt
-noremap <S-h> gT
+" noremap <S-l> gt
+" noremap <S-h> gT
 
 map <silent> <D-1> :tabn 1<cr>
 map <silent> <D-2> :tabn 2<cr>
@@ -291,7 +284,6 @@ if has("gui_running")
     " Disable printing in macvim
     macmenu File.Print key=<nop>
     imap <D-p> <c-p>
-    set transparency=1
   endif
 
   " Don't highlight SpecialKeys
@@ -348,8 +340,7 @@ let g:vimfiler_as_default_explorer = 1
 nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
 
 " hide initial nerd tree when opening a file
-" let g:ctrlp_dont_split = 'NERD_tree_2'
-let g:ctrlp_dont_split = 'NERD'
+let g:ctrlp_reuse_window = 'netrw\|vimfiler'
 
 " let g:ctrlp_working_path_mode = 2
 " nnoremap <silent> <D-t> :CtrlP<CR>

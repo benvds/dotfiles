@@ -25,7 +25,9 @@ alias be="bundle exec"
 alias hk="heroku"
 alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
 alias bower="noglob bower"
-alias vim='/opt/homebrew-cask/Caskroom/macvim/7.4-73/MacVim-snapshot-73/MacVim.app/Contents/MacOS/Vim'
+# alias vim='vim -v'
+alias vim='nvim'
+alias v='vim'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -103,3 +105,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # export NLS_LANG="AMERICAN_AMERICA.UTF8"
 # export PATH="$PATH:/usr/local/bin"
 # export PATH="$PATH:/usr/local/oracle"
+
+### Android
+export PATH="$PATH:/Users/benvds/Library/Android/sdk/build-tools:/Users/benvds/Library/Android/sdk/tools"
