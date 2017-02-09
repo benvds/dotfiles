@@ -29,13 +29,22 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'mxw/vim-jsx'
+
+" Writing
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'junegunn/goyo.vim'
 
 NeoBundle 'lambdatoast/elm.vim'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'rust-lang/rust.vim'
 
 call neobundle#end()
 
@@ -120,7 +129,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete ts=2 sw=2
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -220,9 +229,13 @@ set scrolloff=5
 
 "key mapping for window navigation
 map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+"key mapping for tab navigation
+nnoremap <C-k> :tabprevious<CR>
+nnoremap <C-j>  :tabnext<CR>
 
 "Key mapping for textmate-like indentation
 nmap <D-[> <<
@@ -236,14 +249,23 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 nnoremap <leader>. <c-^>        " Switch between last buffer
 
+" macros
+
+let @c='viw"zyoccconsole.log('''', );F(la"zpf)h"zp^'
 
 " Visuals
 
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
+" let g:solarized_contrast="high"
+" let g:solarized_visibility="high"
 set background=dark
 set linespace=4
 colorscheme solarized
+" colorscheme base16-solarized
 
+" just use the terminals font
 " set guifont=Source\ Code\ Pro\ Light:h12
-set guifont=Source\ Code\ Pro:h12
+" set guifont=Source\ Code\ Pro:h12
+" set guifont=Hack\ Regular:h12
+" set guifont=Fira\ Code\ Regular:h12
+
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
