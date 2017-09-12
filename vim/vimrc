@@ -1,350 +1,52 @@
-" =============== Vundle ===============
-
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-Bundle 'gmarik/Vundle.vim'
-
-" =============== Bundles ===============
-
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'tomtom/tlib_vim'
-Bundle 'godlygeek/csapprox'
-
-Bundle 'altercation/vim-colors-solarized'
-
-Bundle 'tomtom/tcomment_vim'
-
-Bundle 'Shougo/vimproc.vim'
-" Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler.vim'
-
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-" Bundle 'godlygeek/tabular'
-
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/vim-snippets'
-
-" if executable('ctags')
-"     Bundle 'szw/vim-tags'
-"     Bundle 'majutsushi/tagbar'
-" endif
-
-Bundle 'othree/yajs.vim'
-Bundle 'leshill/vim-json'
-" Bundle 'groenewege/vim-less'
-" Bundle 'briancollins/vim-jst'
-" Bundle 'kchmck/vim-coffee-script'
-
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'mattn/emmet-vim'
-" Bundle 'tpope/vim-haml'
-" Bundle 'slim-template/vim-slim'
-
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-endwise'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-cucumber'
-" Bundle 'mustache/vim-mustache-handlebars'
-
-" Clojure
-" Bundle 'kien/rainbow_parentheses.vim'
-" Bundle 'guns/vim-clojure-static'
-" Bundle 'tpope/vim-fireplace'
-" Bundle 'guns/vim-clojure-highlight'
-
-Bundle 'elixir-lang/vim-elixir'
-
-Bundle 'bling/vim-airline'
-Bundle 'sjl/gundo.vim'
-Bundle 'mhinz/vim-startify'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'editorconfig/editorconfig-vim'
-
-Bundle 'vim-scripts/ZoomWin'
-" Bundle 'henrik/vim-yaml-flattener'
-
-" Bundle 'DirDiff.vim'
-
-" Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'janko-m/vim-test'
-Bundle 'wincent/ferret'
-Bundle 'wincent/terminus'
-
-filetype plugin indent on     " required by Vundle!
-
-" =============== General ===============
-
-" let mapleader=","
-let mapleader="\<Space>"
-
-set number                      "Line numbers are good
-set ruler                       "Show current position in statusline
-set cursorline                  "Highlight the screenline of the cursor
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
-set visualbell                  "No sounds
-set autoread                    "Reload files changed outside vim
-syntax on                       "turn on syntax highlighting
-
-" move up/down by visual line instead of text line (for line wraps)
-" this is giving some strange behavior, e.g. delete line below
-" noremap j gj
-" noremap k gk
-
-"some stuff to get the mouse going in term
-set mouse=a
-set ttymouse=xterm2
-
-set shell=/bin/sh
-
-" link .md extension to Markdown syntax
-au BufNewFile,BufRead *.md setlocal ft=markdown sw=2 ts=2
-au BufNewFile,BufRead *.slim setlocal ft=slim syntax=slim
-
-let $PAGER=''
-
-" ================ Search Settings  =================
-
-set incsearch        "Find the next match as we type the search
-set hlsearch         "Hilight searches by default
-set ignorecase       "Ignore case when searching
-" press esc to stop search highlight
-nnoremap <silent> <esc> :noh<return><esc>
-set viminfo='100,f1  "Save up to 100 marks, enable capital marks
-
-" ================ Turn Off Swap Files ==============
-
-set noswapfile
-set nobackup
-set nowb
-
-" ================ Persistent Undo ==================
-
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-
-silent !mkdir ~/.vim/backups > /dev/null 2>&1
-set undodir=~/.vim/backups
-set undofile
-
-" ================ Indentation ======================
-
-set autoindent
-set smartindent
-set smarttab
-set smartcase
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-set colorcolumn=80
-
-autocmd FileType ruby,coffee,slim setlocal nowrap foldmethod=syntax shiftwidth=2 tabstop=2
-autocmd FileType html,xhtml,xml,eruby setlocal nowrap foldmethod=indent shiftwidth=4 tabstop=4
-autocmd FileType less setlocal nowrap foldmethod=syntax shiftwidth=4 tabstop=4
-
-filetype plugin on
-filetype indent on
-
-" Display tabs and trailing spaces visually
-set list listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:¬
-
-" ================ Folds ============================
-
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-" ================ Completion =======================
-
-set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=*/vendor/rails/**
-set wildignore+=*/vendor/cache/**
-set wildignore+=*/vendor/bundle/**
-set wildignore+=*/bundler_stubs/**
-set wildignore+=*/\.hg/**
-set wildignore+=*/\.svn/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-
-
-" ================ Scrolling ========================
-
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
-set sidescrolloff=15
-set sidescroll=1
-
-" ================ Commands ========================
-
-"key mapping for window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-"Key mapping for textmate-like indentation
-nmap <D-[> <<
-nmap <D-]> >>
-vmap <D-[> <gv
-vmap <D-]> >gv
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" save & load session in working directory
-map <leader>s :mksession! .session.vim<CR>
-map <leader>l :so .session.vim<CR>
-
-nnoremap <leader>. <c-^>        " Switch between last buffer
-
-" copy & past system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
-" mac
-" noremap <S-l> gt
-" noremap <S-h> gT
-
-map <silent> <D-1> :tabn 1<cr>
-map <silent> <D-2> :tabn 2<cr>
-map <silent> <D-3> :tabn 3<cr>
-map <silent> <D-4> :tabn 4<cr>
-map <silent> <D-5> :tabn 5<cr>
-map <silent> <D-6> :tabn 6<cr>
-map <silent> <D-7> :tabn 7<cr>
-map <silent> <D-8> :tabn 8<cr>
-map <silent> <D-9> :tabn 9<cr>
-
-" linux
-map <C-S-]> gt
-map <C-S-[> gT
-
-" w!! to write a file as sudo
-" stolen from Steve Losh
-cmap w!! w !sudo tee % >/dev/null
-
-" ================ Appearance ========================
-
-set linespace=4
-
-if has("gui_running")
-
-  let g:solarized_contrast="high"
-  let g:solarized_visibility="high"
-  colorscheme solarized
-
-  " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
-  " For some reason this doesn't work as a regular set command,
-  " (the numbers don't show up) so I made it a VimEnter event
-  autocmd VimEnter * set guitablabel=%N:\ %t\ %M
-
-  set lines=44
-  set columns=172
-
-  set guifont=Source\ Code\ Pro\ Light:h12
-  " set guifont=Source\ Code\ Pro:h12
-  " set guifont=Source\ Code\ Pro:h13
-
-  set guioptions-=r
-  set guioptions-=L
-
-  if has("gui_macvim")
-    " Disable the macvim toolbar
-    set guioptions-=T
-    " Disable printing in macvim
-    macmenu File.Print key=<nop>
-    imap <D-p> <c-p>
-  endif
-
-  " Don't highlight SpecialKeys
-  highlight SpecialKey NONE guifg=#657b83
-
-else
-
-  "dont load csapprox if we no gui support - silences an annoying warning
-  let g:CSApprox_loaded = 1
-  set t_Co=256
-  " let g:solarized_termcolors=256
-  set term=xterm-256color
-
-  let g:solarized_contrast="high"
-  colorscheme solarized
-
-endif
-
-set background=dark
-" set background=light
-
-" ================ Functions ========================
-
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>rn :call RenameFile()<cr>
-
-
-if executable('ctags')
-    :noremap <Leader>rt :!generate_ctags<CR>
-endif
-
-" ================ Bundle settings ========================
-
-" Tcomment
-
-map <D-/> :TComment<CR>
-imap <D-/> <Esc>:TComment<CR>
-
-" VimFiler
-
-let g:vimfiler_as_default_explorer = 1
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'mileszs/ack.vim'
+Plug 'Shougo/neocomplcache'
+Plug 'Shougo/neosnippet'
+Plug 'honza/vim-snippets'
+Plug 'tomtom/tcomment_vim'
+" Plug 'airblade/vim-gitgutter' " makes vim slow
+Plug 'sjl/gundo.vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' }
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-rails' " makes vim slow
+
+
+" Writing
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'elmcast/elm-vim'
+
+" Initialize plugin system
+call plug#end()
+
+let g:netrw_banner = 0
+
+" EditorConfig
+" use the system editor config, makes startup faster
+let g:EditorConfig_core_mode = 'external_command'
 
 " Ctrl-P
 
-" Cmd-Shift-P to clear the cache
-nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
-
-" hide initial nerd tree when opening a file
-let g:ctrlp_reuse_window = 'netrw\|vimfiler'
-
-" let g:ctrlp_working_path_mode = 2
-" nnoremap <silent> <D-t> :CtrlP<CR>
 nnoremap <silent> <C-b> :CtrlPMRU<CR>
+let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
     \ 'file': '\.exe$\|\.so$\|\.dll$' }
@@ -357,257 +59,211 @@ let g:ctrlp_user_command = {
     \ 'fallback': 'find %s -type f'
 \ }
 
-" Unite
 
-" let g:unite_source_history_yank_enable = 1
-" let g:unite_data_directory='~/.vim/.cache/unite'
-" let g:unite_source_rec_max_cache_files=50000
-" let g:unite_enable_start_insert = 1
-"
-" " call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-" "       \ 'ignore_pattern', join([
-" "       \ '\.git/',
-" "       \ '\.hg/',
-" "       \ 'node_modules/',
-" "       \ 'vendor/',
-" "       \ ], '\|'))
-"
-" " fuzzy matcher and sort everything
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
-"
-" " nnoremap <leader>g :Unite grep:.<cr>
-"
-" nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   file_rec/async:!<cr>
-" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   file<cr>
-" nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     file_mru<cr>
-" nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline outline<cr>
-" nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-"
-" " old habits die hard
-" nnoremap <C-P> :Unite -no-split -buffer-name=files buffer file_rec/git<cr>
-"
-" autocmd FileType unite call s:unite_settings()
-"
-" function! s:unite_settings()
-"   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-"   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-"   imap <silent><buffer><expr> <C-x> unite#do_action('split')
-"   imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-"   imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-"
-"   nmap <buffer> <ESC> <Plug>(unite_exit)
-" endfunction
-"
-" if executable('ag')
-"   let g:unite_source_grep_command='ag'
-"   let g:unite_source_grep_default_opts =
-"         \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
-"         \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
-"         \ '--ignore ''**/*.pyc'''
-"   let g:unite_source_grep_recursive_opt=''
-"   let g:unite_source_grep_search_word_highlight = 1
-"   " let g:unite_source_file_async_command =
-"   "           \ 'ag --follow --nocolor --nogroup --hidden -g ""'
-"   " https://github.com/ggreer/the_silver_searcher
-"   " Use ag in unite grep source.
-"   let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden ' .
-"         \ '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
-"         \ '--ignore ''**/*.pyc'' -g ""'
-"   let g:unite_source_grep_command = 'ag'
-" elseif executable('ack-grep')
-"   let g:unite_source_grep_command = 'ack-grep'
-"   " Match whole word only. This might/might not be a good idea
-"   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
-"   "let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
-"   let g:unite_source_grep_default_opts .= '--exclude ''\.(git|svn|hg|bzr)'''
-"   let g:unite_source_grep_recursive_opt = ''
-" elseif executable('ack')
-"   " let g:unite_source_rec_async_command = 'ack -f --nofilter'
-"   let g:unite_source_grep_command = 'ack'
-"   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
-"   let g:unite_source_grep_default_opts .= '--exclude ''\.(git|svn|hg|bzr)'''
-"   let g:unite_source_grep_recursive_opt = ''
-" endif
-"
-" call unite#custom#source('file_rec/async,file_rec/git', 'ignore_globs', [])
-"
-" call unite#custom#source('file_rec,file_rec/async,file_rec/git',
-"       \ 'max_candidates', 1000)
-" "# Q: I want the strength of the match to overpower the order in which I list
-" " sources.
-" call unite#custom#profile('files', 'filters', 'sorter_rank')
-"
-" call unite#custom#source(
-"       \ 'buffer,file_rec', 'matchers',
-"       \ ['converter_relative_word', 'matcher_fuzzy',
-"       \  'matcher_project_ignore_files'])
-" call unite#custom#source('file_rec/async,file_rec/git', 'matchers', 
-"       \  [ 'converter_relative_word', 'matcher_default' ])
-" call unite#custom#source(
-"       \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-"       \ ['converter_file_directory'])
-" "      \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
-" call unite#custom#source(
-"       \ 'file_rec,file_rec/async', 'required_pattern_length',
-"       \ 1)
-"
-" " https://github.com/Shougo/unite.vim/issues/467#issuecomment-54888841
-" call unite#custom#source('file_rec', 'sorters', 'sorter_length')
-"
-" " Map space to the prefix for Unite
-" nnoremap [unite] <Nop>
-" nmap <space> [unite]
+ " neocomplcache
 
-" Sessionman
+ let g:acp_enableAtStartup = 0
+ let g:neocomplcache_enable_at_startup = 1
+ let g:neocomplcache_enable_camel_case_completion = 1
+ let g:neocomplcache_enable_smart_case = 1
+ let g:neocomplcache_enable_underbar_completion = 1
+ let g:neocomplcache_enable_auto_delimiter = 1
+ let g:neocomplcache_max_list = 15
+ let g:neocomplcache_force_overwrite_completefunc = 1
 
-set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-nmap <leader>sl :SessionList<CR>
-nmap <leader>ss :SessionSave<CR>
+ " SuperTab like snippets behavior.
+ imap <silent><expr><TAB> neosnippet#expandable() ?
+             \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+             \ "\<C-e>" : "\<TAB>")
+ smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
 
-" matchit, textobj & rubyblock
-runtime macros/matchit.vim
+ " Define dictionary.
+ let g:neocomplcache_dictionary_filetype_lists = {
+             \ 'default' : '',
+             \ 'vimshell' : $HOME.'/.vimshell_hist',
+             \ 'scheme' : $HOME.'/.gosh_completions'
+             \ }
 
-" add rails gems
-set tags+=gems.tags
+ " Define keyword.
+ if !exists('g:neocomplcache_keyword_patterns')
+     let g:neocomplcache_keyword_patterns = {}
+ endif
+ let g:neocomplcache_keyword_patterns._ = '\h\w*'
 
-" neocomplcache
+ if !(exists('g:neocomplcache_same_filetype_lists'))
+    let g:neocomplcache_same_filetype_lists = {}
+ endif
+ let g:neocomplcache_same_filetype_lists.erb = 'html,eruby,ruby'
+ let g:neocomplcache_same_filetype_lists.eruby = 'html,erb,ruby'
 
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_auto_delimiter = 1
-let g:neocomplcache_max_list = 15
-let g:neocomplcache_force_overwrite_completefunc = 1
+ " Plugin key-mappings.
 
-" SuperTab like snippets behavior.
-imap <silent><expr><TAB> neosnippet#expandable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-            \ "\<C-e>" : "\<TAB>")
-smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+ " These two lines conflict with the default digraph mapping of <C-K>
+ " If you prefer that functionality, add
+ imap <C-k> <Plug>(neosnippet_expand_or_jump)
+ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+ inoremap <expr><C-g> neocomplcache#undo_completion()
+ inoremap <expr><C-l> neocomplcache#complete_common_string()
+ inoremap <expr><CR> neocomplcache#complete_common_string()
 
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns._ = '\h\w*'
+ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+ inoremap <expr><C-y> neocomplcache#close_popup()
 
-if !(exists('g:neocomplcache_same_filetype_lists'))
-   let g:neocomplcache_same_filetype_lists = {}
-endif
-let g:neocomplcache_same_filetype_lists.erb = 'html,eruby,ruby'
-let g:neocomplcache_same_filetype_lists.eruby = 'html,erb,ruby'
+ " Enable omni completion.
+ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete ts=2 sw=2
 
-" Plugin key-mappings.
+ " Enable heavy omni completion.
+ if !exists('g:neocomplcache_omni_patterns')
+     let g:neocomplcache_omni_patterns = {}
+ endif
 
-" These two lines conflict with the default digraph mapping of <C-K>
-" If you prefer that functionality, add
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
+ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+ let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+ let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
-inoremap <expr><CR> neocomplcache#complete_common_string()
+ " Use honza's snippets.
+ let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplcache#close_popup()
+ " Enable neosnippet snipmate compatibility mode
+ let g:neosnippet#enable_snipmate_compatibility = 1
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+ " https://github.com/spf13/spf13-vim/issues/539
+ let g:neosnippet#disable_runtime_snippets = { "_": 1, }
 
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
+ " For snippet_complete marker.
+ if has('conceal')
+     set conceallevel=2 concealcursor=i
+ endif
+
+ " Disable the neosnippet preview candidate window
+ " When enabled, there can be too much visual noise
+ " especially when splits are used.
+ set completeopt-=preview
+
+
+ " Disable AutoComplPop.
+ let g:acp_enableAtStartup = 0
+ " Use neocomplcache.
+ let g:neocomplcache_enable_at_startup = 1
+ " Use smartcase.
+ let g:neocomplcache_enable_smart_case = 1
+ " Set minimum syntax keyword length.
+ let g:neocomplcache_min_syntax_length = 3
+ " Plugin key-mappings.
+ inoremap <expr><C-g>     neocomplcache#undo_completion()
+ inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+ " Recommended key-mappings.
+ " <CR>: close popup and save indent.
+ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+ function! s:my_cr_function()
+   return neocomplcache#smart_close_popup() . "\<CR>"
+   " For no inserting <CR> key.
+   "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+ endfunction
+ " <TAB>: completion.
+ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+ " <C-h>, <BS>: close popup and delete backword char.
+ inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+ inoremap <expr><C-y>  neocomplcache#close_popup()
+ inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" use ag instead of ack
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
 endif
 
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+nnoremap <F5> :GundoToggle<CR>
 
-" Use honza's snippets.
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
-" Enable neosnippet snipmate compatibility mode
-let g:neosnippet#enable_snipmate_compatibility = 1
+" General
 
-" https://github.com/spf13/spf13-vim/issues/539
-let g:neosnippet#disable_runtime_snippets = { "_": 1, }
+let mapleader="\<Space>"
 
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
+syntax on                       " Turn on syntax highlighting
+
+set number                      " Line numbers are good
+set ruler                       " Show current position in statusline
+set showmode                    " Show current mode down the bottom
+set visualbell                  " No sounds
+
+set ignorecase                  " Ignore case when searching
+
+set conceallevel=0
+
+" press esc to stop search highlight
+set hlsearch
+nnoremap <silent> <esc> :noh<return><esc>
+
+set noswapfile
+set nobackup
+set nowb
+
+set autoindent
+set smartindent
+set smartcase
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set expandtab
+set colorcolumn=80
+set autoread
+set scrolloff=5
+set updatetime=250
+
+" make vim in terminal somewhat faster
+set ttyfast
+set lazyredraw
+
+"key mapping for window navigation
+map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"key mapping for tab navigation
+nnoremap <C-k> :tabprevious<CR>
+nnoremap <C-j> :tabnext<CR>
+
+" retain visual selection after indent
+vnoremap > >gv
+vnoremap < <gv
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+nnoremap <leader>. <c-^>        " Switch between last buffer
+
+colorscheme solarized
+set bg=dark
+
+if has("gui_running")
+    let g:solarized_contrast="high"
+    let g:solarized_visibility="high"
+    set cursorline                  " Highlight the screenline of the cursor
+    set linespace=6
+    set guifont=Hack:h11
 endif
 
-" Disable the neosnippet preview candidate window
-" When enabled, there can be too much visual noise
-" especially when splits are used.
-set completeopt-=preview
-
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" Airline
-
-set laststatus=2 " always show statusline
-let g:airline_theme='solarized'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_extensions = ['branch']
-let g:airline#extensions#branch#enabled = 1
-
-" Gundo
-nmap ,u :GundoToggle<CR>
-" open on the right so as not to compete with the nerdtree
-let g:gundo_right = 1 
-" a little wider for wider screens
-let g:gundo_width = 60
-
-" Startify
-let g:startify_session_dir = '~/.vim/sessions'
-
-" Fugutive
-" auto clean fugutive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
