@@ -22,6 +22,8 @@ Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-endwise'
 " Plug 'tpope/vim-rails' " makes vim slow
 
 

@@ -94,7 +94,7 @@
 [core]
   autocrlf = false
   editor = vim
-  excludesfile = ~/.dotfiles/gitignore
+	excludesfile = /Users/benvds/.dotfiles/gitignore
 [advice]
   statusHints = false
 [diff]
@@ -107,7 +107,7 @@
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
 [user]
-	name = benvds
+	name = Ben van de Sande
 	email = ben@pomodoro.nl
 [difftool]
 	prompt = false
@@ -127,3 +127,10 @@
 [mergetool "sourcetree"]
 	cmd = /Users/benvds/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[commit]
+	template = /Users/benvds/.stCommitMsg
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
