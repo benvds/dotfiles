@@ -7,6 +7,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'editorconfig/editorconfig-vim'
