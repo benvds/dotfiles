@@ -19,6 +19,50 @@ fancy-ctrl-z () {
     fi
 }
 
+# Setting rg as the default source for fzf
+export FZF_DEFAULT_COMMAND='rg --files'
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+
+_gen_fzf_default_opts() {
+  local base03="234"
+  local base02="235"
+  local base01="240"
+  local base00="241"
+  local base0="244"
+  local base1="245"
+  local base2="254"
+  local base3="230"
+  local yellow="136"
+  local orange="166"
+  local red="160"
+  local magenta="125"
+  local violet="61"
+  local blue="33"
+  local cyan="37"
+  local green="64"
+
+  # Comment and uncomment below for the light theme.
+
+  # Solarized Dark color scheme for fzf
+  export FZF_DEFAULT_OPTS="
+    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+    --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+  "
+  ## Solarized Light color scheme for fzf
+  #export FZF_DEFAULT_OPTS="
+  #  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+  #  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+  #"
+}
+_gen_fzf_default_opts
+
+# if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+#   source /usr/local/opt/fzf/shell/key-bindings.zsh
+#   source /usr/local/opt/fzf/shell/completion.zsh
+# fi
+
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
@@ -30,13 +74,15 @@ alias mem_stop="killall memcached"
 alias be="bundle exec"
 alias hk="heroku"
 alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
-alias vim='/usr/local/bin/vim'
+# alias vim='/usr/local/bin/vim'
+alias vim='/Applications/MacVim.app/Contents/bin/vim'
 alias v='vim'
 alias v.='vim .'
 alias s='subl'
 alias s.='subl .'
 alias bef='bundle exec foreman'
 alias gs='git status'
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
 . ~/.dotfiles/z/z.sh
 
@@ -63,18 +109,20 @@ if [[ -e /usr/local/share/chruby ]]; then
   fi
 fi
 
+export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/ripgreprc"
+
 # node switching
 # nvm is slow
 # [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
-alias loadnvm="[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh"
+alias loadnvm="[[ -s /usr/local/Cellar/nvm/0.33.4/nvm.sh ]] && source /usr/local/Cellar/nvm/0.33.4/nvm.sh"
 
 # python virtualenv switching
-# if which pyenv-virtualenv-init > /dev/null; then
-#     eval "$(pyenv init -)";
-#     eval "$(pyenv virtualenv-init -)";
-# 
-#     export WORKON_HOME=~/.envs
-# fi
+if which pyenv-virtualenv-init > /dev/null; then
+    eval "$(pyenv init -)";
+    eval "$(pyenv virtualenv-init -)";
+
+    export WORKON_HOME=~/.envs
+fi
 # source /usr/local/opt/autoenv/activate.sh
 
 ### Added by the Heroku Toolbelt
@@ -91,3 +139,5 @@ export ANDROID_HOME="/Users/benvds/Library/Android/sdk"
 # fpath+=~/.zfunc
 # compinit
 # source $HOME/.cargo/env
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
