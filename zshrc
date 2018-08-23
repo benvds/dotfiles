@@ -83,6 +83,7 @@ alias s.='subl .'
 alias bef='bundle exec foreman'
 alias gs='git status'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias did="vim +'normal Go' ~/did.txt"
 
 . ~/.dotfiles/z/z.sh
 

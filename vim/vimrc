@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -25,7 +26,7 @@ Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
 " Plug 'airblade/vim-gitgutter' " makes vim slow
 Plug 'mbbill/undotree'
-Plug 'mattn/emmet-vim', { 'for': 'html' }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
@@ -35,7 +36,8 @@ Plug 'tpope/vim-endwise'
 Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
 Plug 'ntpeters/vim-better-whitespace'
-
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'ludovicchabant/vim-gutentags'
 
 " Writing
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
@@ -45,6 +47,7 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
 " Initialize plugin system
@@ -58,6 +61,11 @@ let g:netrw_banner = 0
 set guioptions+=e
 let g:fzf_layout = { 'down': '~20%' }
 nnoremap <silent> <C-b> :Files<CR>
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+" hide initial nerd tree when opening a file
+let g:ctrlp_reuse_window = 'netrw\|vimfiler'
 
 " EditorConfig
 " use the system editor config, makes startup faster
@@ -90,6 +98,12 @@ endif
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" YCM https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support#vim
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -213,13 +227,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " inoremap <expr><C-y>  neocomplcache#close_popup()
 " inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-" use ag instead of ack
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
 " use ripgrep instead of ag
 if executable('rg')
-  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:ackprg = 'rg --vimgrep --no-heading --smart-case --max-columns=160'
 endif
 
 " Undotree
@@ -232,10 +242,11 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'linter_warnings', 'linter_errors', 'linter_ok' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'tagstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'tagstatus': 'gutentags#statusline', 
       \ },
       \ 'component_expand': {
       \   'linter_warnings': 'LightlineLinterWarnings',
@@ -310,9 +321,9 @@ set nowb
 set autoindent
 set smartindent
 set smartcase
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
 set colorcolumn=80
 set autoread
@@ -343,8 +354,11 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 nnoremap <leader>. <c-^>        " Switch between last buffer
 
+" write using sudo
+cmap w!! w !sudo tee > /dev/null %
+
 colorscheme solarized
-set bg=dark
+set bg=light
 
 if has("gui_running")
     let g:solarized_contrast="high"
