@@ -13,12 +13,13 @@ Plug 'tpope/vim-surround'
 " Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+" Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
 Plug 'altercation/vim-colors-solarized'
 Plug 'mileszs/ack.vim'
-" Plug 'Shougo/neocomplcache'
-" Plug 'Shougo/neosnippet'
+" Plug 'wincent/ferret' " hipster sht doesnt work
 Plug 'Valloric/YouCompleteMe'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
@@ -35,7 +36,9 @@ Plug 'tpope/vim-endwise'
 " Plug 'tpope/vim-rails' " makes vim slow
 Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
+let g:ale_completion_enabled = 1
 Plug 'ntpeters/vim-better-whitespace'
+
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -43,12 +46,15 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+
+" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
+" Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'lumiliet/vim-twig', { 'for': 'twig' }
 
 " Initialize plugin system
 call plug#end()
@@ -62,10 +68,19 @@ set guioptions+=e
 let g:fzf_layout = { 'down': '~20%' }
 nnoremap <silent> <C-b> :Files<CR>
 
+
+" let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
+
+" allow jsx in regular js extensions
+let g:jsx_ext_required = 0
+
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 " hide initial nerd tree when opening a file
 let g:ctrlp_reuse_window = 'netrw\|vimfiler'
+let NERDTreeQuitOnOpen=1
+let NERDTreeAutoDeleteBuffer=1
+
 
 " EditorConfig
 " use the system editor config, makes startup faster
@@ -74,6 +89,8 @@ let g:EditorConfig_core_mode = 'external_command'
 " Ctrl-P
 
 " nnoremap <silent> <C-b> :CtrlPMRU<CR>
+" Close NERDTree window
+let g:ctrlp_dont_split = 'NERD_tree_1'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
@@ -110,123 +127,6 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
- " neocomplcache
-
-" let g:acp_enableAtStartup = 0
-" let g:neocomplcache_enable_at_startup = 1
-" let g:neocomplcache_enable_camel_case_completion = 1
-" let g:neocomplcache_enable_smart_case = 1
-" let g:neocomplcache_enable_underbar_completion = 1
-" let g:neocomplcache_enable_auto_delimiter = 1
-" let g:neocomplcache_max_list = 15
-" let g:neocomplcache_force_overwrite_completefunc = 1
-"
-" " SuperTab like snippets behavior.
-" imap <silent><expr><TAB> neosnippet#expandable() ?
-"             \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-"             \ "\<C-e>" : "\<TAB>")
-" smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
-"
-" " Define dictionary.
-" let g:neocomplcache_dictionary_filetype_lists = {
-"             \ 'default' : '',
-"             \ 'vimshell' : $HOME.'/.vimshell_hist',
-"             \ 'scheme' : $HOME.'/.gosh_completions'
-"             \ }
-"
-" " Define keyword.
-" if !exists('g:neocomplcache_keyword_patterns')
-"     let g:neocomplcache_keyword_patterns = {}
-" endif
-" let g:neocomplcache_keyword_patterns._ = '\h\w*'
-"
-" if !(exists('g:neocomplcache_same_filetype_lists'))
-"    let g:neocomplcache_same_filetype_lists = {}
-" endif
-" let g:neocomplcache_same_filetype_lists.erb = 'html,eruby,ruby'
-" let g:neocomplcache_same_filetype_lists.eruby = 'html,erb,ruby'
-"
-" " Plugin key-mappings.
-"
-" " These two lines conflict with the default digraph mapping of <C-K>
-" " If you prefer that functionality, add
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-"
-" inoremap <expr><C-g> neocomplcache#undo_completion()
-" inoremap <expr><C-l> neocomplcache#complete_common_string()
-" inoremap <expr><CR> neocomplcache#complete_common_string()
-"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-y> neocomplcache#close_popup()
-"
-" " Enable omni completion.
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete ts=2 sw=2
-"
-" " Enable heavy omni completion.
-" if !exists('g:neocomplcache_omni_patterns')
-"     let g:neocomplcache_omni_patterns = {}
-" endif
-"
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-" let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-"
-" " Use honza's snippets.
-" let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
-"
-" " Enable neosnippet snipmate compatibility mode
-" let g:neosnippet#enable_snipmate_compatibility = 1
-"
-" " https://github.com/spf13/spf13-vim/issues/539
-" let g:neosnippet#disable_runtime_snippets = { "_": 1, }
-"
-" " For snippet_complete marker.
-" if has('conceal')
-"     set conceallevel=2 concealcursor=i
-" endif
-"
-" " Disable the neosnippet preview candidate window
-" " When enabled, there can be too much visual noise
-" " especially when splits are used.
-" set completeopt-=preview
-"
-"
-" " Disable AutoComplPop.
-" let g:acp_enableAtStartup = 0
-" " Use neocomplcache.
-" let g:neocomplcache_enable_at_startup = 1
-" " Use smartcase.
-" let g:neocomplcache_enable_smart_case = 1
-" " Set minimum syntax keyword length.
-" let g:neocomplcache_min_syntax_length = 3
-" " Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplcache#undo_completion()
-" inoremap <expr><C-l>     neocomplcache#complete_common_string()
-"
-" " Recommended key-mappings.
-" " <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-"   return neocomplcache#smart_close_popup() . "\<CR>"
-"   " For no inserting <CR> key.
-"   "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-" endfunction
-" " <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-y>  neocomplcache#close_popup()
-" inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
 " use ripgrep instead of ag
 if executable('rg')
   let g:ackprg = 'rg --vimgrep --no-heading --smart-case --max-columns=160'
@@ -246,7 +146,7 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
-      \   'tagstatus': 'gutentags#statusline', 
+      \   'tagstatus': 'gutentags#statusline',
       \ },
       \ 'component_expand': {
       \   'linter_warnings': 'LightlineLinterWarnings',
@@ -268,8 +168,10 @@ let g:ale_lint_on_enter = 0
 
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
 \}
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_fix_on_save = 1
 
 autocmd User ALELint call lightline#update()
 
@@ -329,6 +231,7 @@ set colorcolumn=80
 set autoread
 set scrolloff=5
 set updatetime=250
+set completeopt-=preview
 
 " make vim in terminal somewhat faster
 set ttyfast
@@ -359,6 +262,7 @@ cmap w!! w !sudo tee > /dev/null %
 
 colorscheme solarized
 set bg=light
+" set bg=dark
 
 if has("gui_running")
     let g:solarized_contrast="high"
@@ -374,7 +278,10 @@ let g:ruby_path="/usr/bin/ruby"
 " somehow this only works when set globally
 set re=1
 let ruby_no_expensive=1
-set noballooneval
+
+if !has("nvim")
+  set noballooneval
+endif
 let g:netrw_nobeval = 1
 
 augroup ft_rb
