@@ -10,10 +10,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
-" Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
-" Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 " Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
@@ -25,7 +23,6 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
-" Plug 'airblade/vim-gitgutter' " makes vim slow
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby'] }
 Plug 'tpope/vim-abolish'
@@ -33,27 +30,23 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
-" Plug 'tpope/vim-rails' " makes vim slow
 Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
-let g:ale_completion_enabled = 1
 Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'ludovicchabant/vim-gutentags'
 
 " Writing
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
-" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-" Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'lumiliet/vim-twig', { 'for': 'twig' }
 
 " Initialize plugin system
@@ -111,16 +104,10 @@ if executable('rg')
   let g:ctrlp_switch_buffer = 'et'
 endif
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" YCM https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support#vim
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
+" " make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -142,11 +129,10 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'linter_warnings', 'linter_errors', 'linter_ok' ],
-      \             [ 'tagstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
-      \   'tagstatus': 'gutentags#statusline',
       \ },
       \ 'component_expand': {
       \   'linter_warnings': 'LightlineLinterWarnings',
@@ -243,6 +229,10 @@ map <C-h> <C-w>h
 " map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+map <C-]> :YcmCompleter GoTo<CR>
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+
 "key mapping for tab navigation
 nnoremap <C-k> :tabprevious<CR>
 nnoremap <C-j> :tabnext<CR>
@@ -262,7 +252,7 @@ cmap w!! w !sudo tee > /dev/null %
 
 colorscheme solarized
 set bg=light
-" set bg=dark
+set bg=dark
 
 if has("gui_running")
     let g:solarized_contrast="high"
