@@ -200,7 +200,7 @@ set conceallevel=0
 
 " press esc to stop search highlight
 set hlsearch
-nnoremap <silent> <esc> :noh<return><esc>
+nnoremap <esc><esc> :nohl<cr>
 
 set noswapfile
 set nobackup
