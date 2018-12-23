@@ -16,8 +16,10 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 " Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
 Plug 'altercation/vim-colors-solarized'
-Plug 'mileszs/ack.vim'
-" Plug 'wincent/ferret' " hipster sht doesnt work
+" Note: add --no-config to the rg command in:
+" vim/plugged/ferret/autoload/ferret/private.vim
+" see: https://github.com/wincent/ferret/issues/55
+Plug 'wincent/ferret'
 Plug 'Valloric/YouCompleteMe'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
