@@ -5,3 +5,6 @@ vim/.netrwhist
 Sublime\ Text/Installed\ Packages/
 Sublime\ Text/Packages/
 Sublime\ Text/Pristine\ Packages/
+vim/autoload/
+vim/plugged/
+vim/vim

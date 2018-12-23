@@ -12,6 +12,8 @@
 # Ignore tags created by etags and ctags
 TAGS
 tags
+tags.lock
+tags.temp
 
 # Vim       taken from: https://github.com/github/gitignore/blob/master/Global/vim.gitignore
 # ----------------------------------------------------------------------------------------------
