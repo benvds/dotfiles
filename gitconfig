@@ -96,7 +96,7 @@
   default = tracking
 [core]
   autocrlf = false
-  editor = vim
+  editor = nvim -u NONE
 	excludesfile = /Users/benvds/.dotfiles/gitignore
 [advice]
   statusHints = false
@@ -104,7 +104,7 @@
   # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
   # instead of a/b/c/d as prefixes for patches
   mnemonicprefix = true
-  tool = default-difftool
+  tool = smerge
 [rerere]
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
