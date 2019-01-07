@@ -279,7 +279,7 @@ if has("gui_running")
 endif
 
 " try to speed up ruby
-let g:ruby_path="/usr/bin/ruby"
+" let g:ruby_path="/usr/bin/ruby"
 
 " somehow this only works when set globally
 set re=1
