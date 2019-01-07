@@ -27,7 +27,7 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
-Plug 'mbbill/undotree'
+" Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
@@ -137,7 +137,7 @@ if executable('rg')
 endif
 
 " Undotree
-nnoremap <F5> :UndotreeToggle<cr>
+" nnoremap <F5> :UndotreeToggle<cr>
 
 " Lightline
 set laststatus=2
