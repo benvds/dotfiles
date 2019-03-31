@@ -28,7 +28,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
 " Plug 'mbbill/undotree'
-Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
@@ -100,7 +100,8 @@ let g:EditorConfig_core_mode = 'external_command'
 
 " nnoremap <silent> <C-b> :CtrlPMRU<CR>
 " Close NERDTree window
-let g:ctrlp_dont_split = 'NERD_tree_1'
+" let g:ctrlp_dont_split = 'NERD_tree_1'
+let g:ctrlp_dont_split = 'NERD'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
@@ -200,6 +201,14 @@ function! LightlineLinterOK() abort
   return l:counts.total == 0 ? '✓' : ''
 endfunction
 
+" Emmet
+
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
 " General
 
 let mapleader="\<Space>"
@@ -268,7 +277,7 @@ cmap w!! w !sudo tee > /dev/null %
 
 colorscheme solarized
 set bg=light
-set bg=dark
+" set bg=dark
 
 if has("gui_running")
     let g:solarized_contrast="high"
