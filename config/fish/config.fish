@@ -12,6 +12,8 @@ set -x PATH "/usr/local/opt/openssl/bin:$PATH"
 set -x PKG_CONFIG_PATH "/usr/local/opt/libpq/lib/pkgconfig"
 set -x PATH "$PATH:/Users/benvds/Library/Android/sdk/platform-tools:/Users/benvds/Library/Android/sdk/build-tools:/Users/benvds/Library/Android/sdk/tools"
 set -x ANDROID_HOME "/Users/benvds/Library/Android/sdk"
+set -x PYENV_ROOT "$HOME/.pyenv"
+set -x PATH "$PYENV_ROOT/bin:$PATH"
 
 set -U fish_greeting ""
 
