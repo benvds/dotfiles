@@ -2,11 +2,10 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME="spaceship"
 export ZSH=/Users/benvds/.oh-my-zsh
 
-# plugins=(git bundler osx rake ruby rust nvm npm node)
 # plugins are slow
 plugins=(git)
 
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 
 fancy-ctrl-z () {
@@ -67,23 +66,17 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 # Aliases
-alias pg_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-alias pg_stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-alias mem_start="/usr/local/bin/memcached -d"
-alias mem_stop="killall memcached"
-alias be="bundle exec"
-alias hk="heroku"
-alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
-# alias vim='/usr/local/bin/vim'
 alias vim='/Applications/MacVim.app/Contents/bin/vim'
 alias v='vim'
 alias v.='vim .'
 alias s='subl'
 alias s.='subl .'
+alias be="bundle exec"
 alias bef='bundle exec foreman'
+alias g='git'
 alias gs='git status'
+alias ga='git add'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias did="vim +'normal Go' ~/did.txt"
 
 . ~/.dotfiles/z/z.sh
 
@@ -92,6 +85,9 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X1
 export ARCHFLAGS="-arch x86_64"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export EDITOR="vim"
+# export VIMINIT=~/.config/init.vim
+# # disabled, npm starts creating symlic links to home dir when using this :-(
+# export XDG_CONFIG_HOME="~/.config"
 
 # vim als postgres default editor
 export PSQL_EDITOR='vim +"set syntax=sql" '
@@ -115,16 +111,22 @@ export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/ripgreprc"
 # node switching
 # nvm is slow
 # [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
-alias loadnvm="[[ -s /usr/local/Cellar/nvm/0.33.4/nvm.sh ]] && source /usr/local/Cellar/nvm/0.33.4/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
+alias loadnvm="[[ -s /usr/local/opt/nvm/nvm.sh ]] && source /usr/local/opt/nvm/nvm.sh"
 
 # python virtualenv switching
+# brew install pyenv-virtualenv
 if which pyenv-virtualenv-init > /dev/null; then
     eval "$(pyenv init -)";
     eval "$(pyenv virtualenv-init -)";
 
     export WORKON_HOME=~/.envs
 fi
-# source /usr/local/opt/autoenv/activate.sh
+
+# brew install autoenv
+if [ ! -f /usr/local/opt/autoenv/activate.sh ]; then
+    source /usr/local/opt/autoenv/activate.sh
+fi
 
 ### Added by the Heroku Toolbelt
 # export PATH="/usr/local/heroku/bin:$PATH"
@@ -141,4 +143,21 @@ export ANDROID_HOME="/Users/benvds/Library/Android/sdk"
 # compinit
 # source $HOME/.cargo/env
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
+
+# export DISABLE_AUTO_TITLE="true"
+#
+# set-window-title() {
+#   window_title="\e]1;$PWD\a"
+#   echo -ne "$window_title"
+# }
+#
+# PR_TITLEBAR=''
+# set-window-title
+# precmd set-window-title
