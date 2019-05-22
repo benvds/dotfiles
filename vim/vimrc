@@ -1,15 +1,12 @@
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-" @WIP
-" https://github.com/Valloric/YouCompleteMe/issues/3274
+" NOTE: https://github.com/Valloric/YouCompleteMe/issues/3274
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh'}
 
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
@@ -18,16 +15,12 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 " Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
 Plug 'altercation/vim-colors-solarized'
-" Note: add --no-config to the rg command in:
-" vim/plugged/ferret/autoload/ferret/private.vim
-" see: https://github.com/wincent/ferret/issues/55
 Plug 'wincent/ferret'
 Plug 'Valloric/YouCompleteMe'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
-" Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
@@ -71,14 +64,6 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 let g:netrw_banner = 0
 
-" set rtp+=/usr/local/bin/fzf
-" set rtp+=~/.fzf
-
-set guioptions+=e
-let g:fzf_layout = { 'down': '~20%' }
-nnoremap <silent> <C-b> :Files<CR>
-
-
 " let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
 
 " allow jsx in regular js extensions
@@ -86,8 +71,6 @@ let g:jsx_ext_required = 0
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
-" hide initial nerd tree when opening a file
-let g:ctrlp_reuse_window = 'netrw\|vimfiler'
 let NERDTreeQuitOnOpen=1
 let NERDTreeAutoDeleteBuffer=1
 
@@ -99,10 +82,9 @@ let g:EditorConfig_core_mode = 'external_command'
 " Ctrl-P
 
 " nnoremap <silent> <C-b> :CtrlPMRU<CR>
-" Close NERDTree window
-" let g:ctrlp_dont_split = 'NERD_tree_1'
-let g:ctrlp_dont_split = 'NERD'
-let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler'
+" TODO: hide initial nerd tree when opening a file
+let g:ctrlp_dont_split = 'NERD_tree_1'
+let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|NERD\|NERD_tree_1\|NERD_tree_2'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
     \ 'file': '\.exe$\|\.so$\|\.dll$' }
@@ -134,11 +116,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " use ripgrep instead of ag
 if executable('rg')
-  let g:ackprg = 'rg --vimgrep --no-heading --smart-case --max-columns=160'
+  let g:ackprg = 'rg --no-config --vimgrep --no-heading --smart-case --max-columns=160'
 endif
-
-" Undotree
-" nnoremap <F5> :UndotreeToggle<cr>
 
 " Lightline
 set laststatus=2
@@ -267,7 +246,7 @@ vnoremap > >gv
 vnoremap < <gv
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>ev :e ~/.vimrc<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 nnoremap <leader>. <c-^>        " Switch between last buffer
