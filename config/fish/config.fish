@@ -42,6 +42,13 @@ abbr --add gc git commit -m
 
 # Tools
 
+# brew install autojump
+[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+
+set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
+set -gx LDFLAGS "-L/usr/local/opt/node@10/lib"
+set -gx CPPFLAGS "-I/usr/local/opt/node@10/include"
+
 # brew install direnv
 if which direnv > /dev/null;
   eval (direnv hook fish)
@@ -50,9 +57,6 @@ end
 # brew install chruby-fish
 [ -f /usr/local/share/chruby/chruby.fish ]; and source /usr/local/share/chruby/chruby.fish
 [ -f /usr/local/share/chruby/auto.fish ]; and source /usr/local/share/chruby/auto.fish
-
-# brew install autojump
-[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
 # python virtualenv switching
 # brew install pyenv-virtualenv
