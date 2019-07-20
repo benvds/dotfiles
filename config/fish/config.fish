@@ -1,20 +1,28 @@
 # Variables
 
 set -x ARCHFLAGS "-arch x86_64"
-set -x PKG_CONFIG_PATH "/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 set -x EDITOR "nvim"
 set -x PSQL_EDITOR 'nvim +"set syntax=sql" '
 set -x RIPGREP_CONFIG_PATH "$HOME/.dotfiles/ripgreprc"
-# set -x CPPFLAGS "-I/usr/local/opt/openssl/include"
-# set -x LDFLAGS "-L/usr/local/opt/openssl/lib"
-set -x CPPFLAGS "-I/Users/benvds/.rubies/ruby-2.3.3/include"
-set -x LDFLAGS "-L/Users/benvds/.rubies/ruby-2.3.3/lib"
-set -x PATH "/usr/local/opt/openssl/bin:$PATH"
-set -x PKG_CONFIG_PATH "/usr/local/opt/libpq/lib/pkgconfig"
-set -x PATH "$PATH:/Users/benvds/Library/Android/sdk/platform-tools:/Users/benvds/Library/Android/sdk/build-tools:/Users/benvds/Library/Android/sdk/tools"
-set -x ANDROID_HOME "/Users/benvds/Library/Android/sdk"
+set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/openssl/include"
+set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/openssl/lib"
+set -x CPPFLAGS "$CPPFLAGS -I$HOME/.rubies/ruby-2.3.5/include"
+set -x LDFLAGS "$LDFLAGS -L$HOME/.rubies/ruby-2.3.5/lib"
+set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/readline/include"
+set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/readline/lib"
+set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/libffi/lib"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/local/opt/readline/lib/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/local/opt/libpq/lib/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/local/opt/openssl/lib/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/local/opt/libffi/lib/pkgconfig"
+set -x ANDROID_HOME "$HOME/Library/Android/sdk"
 set -x PYENV_ROOT "$HOME/.pyenv"
-set -x PATH "$PYENV_ROOT/bin:$PATH"
+set -x PATH "$PATH:/usr/local/opt/openssl/bin"
+set -x PATH "$PATH:$HOME/Library/Android/sdk/platform-tools"
+set -x PATH "$PATH:$HOME/Library/Android/sdk/build-tools"
+set -x PATH "$PATH:$HOME/Library/Android/sdk/tools"
+set -x PATH "$PATH:$PYENV_ROOT/bin"
 
 set -U fish_greeting ""
 
@@ -45,9 +53,9 @@ abbr --add gc git commit -m
 # brew install autojump
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
-set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
-set -gx LDFLAGS "-L/usr/local/opt/node@10/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/node@10/include"
+set -g fish_user_paths $fish_user_paths "/usr/local/opt/node@10/bin" 
+set -gx LDFLAGS "$LDFLAGS -L/usr/local/opt/node@10/lib"
+set -gx CPPFLAGS "$CPPFLAGS -I/usr/local/opt/node@10/include"
 
 # brew install direnv
 if which direnv > /dev/null;
