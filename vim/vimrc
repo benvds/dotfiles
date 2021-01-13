@@ -1,192 +1,88 @@
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-" NOTE: https://github.com/Valloric/YouCompleteMe/issues/3274
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh'}
-
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-" Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
-Plug 'altercation/vim-colors-solarized'
+" Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+", { 'for': ['javascript', 'typescript'] }
+Plug 'yuezk/vim-js',
+Plug 'maxmellon/vim-jsx-pretty',
+Plug 'overcache/NeoSolarized'
 Plug 'wincent/ferret'
-Plug 'Valloric/YouCompleteMe'
-Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-endwise'
 Plug 'itchyny/lightline.vim'
-Plug 'w0rp/ale'
 Plug 'ntpeters/vim-better-whitespace'
-
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
-" Writing
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'lumiliet/vim-twig', { 'for': 'twig' }
+Plug 'leafgarland/typescript-vim',
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'develop' }
+Plug 'mbbill/undotree'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'jeffkreeftmeijer/vim-dim'
+if has("gui_running")
+  Plug 'L-TChen/auto-dark-mode.vim'
+endif
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-css',
+  \ 'coc-elixir',
+  \ 'coc-html',
+  \ 'coc-json',
+  \ 'coc-python',
+  \ 'coc-solargraph',
+  \ 'coc-tsserver',
+  \ 'coc-yaml',
+  \ 'coc-emmet',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-snippets',
+  \ 'coc-syntax',
+  \ 'coc-ultisnips'
+  \ ]
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+" Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'ervandew/supertab'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+" Plug 'honza/vim-snippets'
+" Plug 'tpope/vim-endwise'
+" Plug 'w0rp/ale'
+" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+" Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
 " Initialize plugin system
 call plug#end()
 
-let g:LanguageClient_serverCommands = {  }
-let g:LanguageClient_serverCommands = {
-    \ 'elixir': ['elixir-ls'],
-    \ 'ruby': ['solargraph', 'stdio']
-\ }
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
-let g:LanguageClient_autoStart=1
-let g:LanguageClient_autoStop=1
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
+autocmd BufNewFile,BufRead *.tsx set syntax=typescript.tsx
+
+" vim-styled-components: prevent syntax highlighting getting out of sync
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 let g:netrw_banner = 0
 
-" let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
-
 " allow jsx in regular js extensions
-let g:jsx_ext_required = 0
-
-" NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
-let NERDTreeAutoDeleteBuffer=1
-
-
-" EditorConfig
-" use the system editor config, makes startup faster
-let g:EditorConfig_core_mode = 'external_command'
-
-" Ctrl-P
-
-" nnoremap <silent> <C-b> :CtrlPMRU<CR>
-" TODO: hide initial nerd tree when opening a file
-let g:ctrlp_dont_split = 'NERD_tree_1'
-let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|NERD\|NERD_tree_1\|NERD_tree_2'
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$' }
-
-let g:ctrlp_user_command = {
-    \ 'types': {
-        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-    \ 'fallback': 'find %s -type f'
-\ }
-
-if executable('rg')
-  let g:ctrlp_user_command = 'rg --files %s'
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_switch_buffer = 'et'
-endif
-
-" " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" use ripgrep instead of ag
-if executable('rg')
-  let g:ackprg = 'rg --no-config --vimgrep --no-heading --smart-case --max-columns=160'
-endif
-
-" Lightline
-set laststatus=2
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'linter_warnings', 'linter_errors', 'linter_ok' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \ },
-      \ 'component_expand': {
-      \   'linter_warnings': 'LightlineLinterWarnings',
-      \   'linter_errors': 'LightlineLinterErrors',
-      \   'linter_ok': 'LightlineLinterOK'
-      \ },
-      \ 'component_type': {
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'ok'
-      \ },
-      \ }
-
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-" You can disable this option too
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\}
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_fix_on_save = 1
-
-autocmd User ALELint call lightline#update()
-
-" ale + lightline
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d --', all_non_errors)
-endfunction
-
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d >>', all_errors)
-endfunction
-
-function! LightlineLinterOK() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓' : ''
-endfunction
-
-" Emmet
-
-let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \  },
-  \}
+" let g:jsx_ext_required = 0
 
 " General
 
@@ -195,6 +91,7 @@ let mapleader="\<Space>"
 syntax on                       " Turn on syntax highlighting
 
 set number                      " Line numbers are good
+set relativenumber
 set ruler                       " Show current position in statusline
 set showmode                    " Show current mode down the bottom
 set visualbell                  " No sounds
@@ -203,12 +100,13 @@ set ignorecase                  " Ignore case when searching
 
 set conceallevel=0
 
-" press esc to stop search highlight
 set hlsearch
+" press esc to stop search highlight
 nnoremap <esc><esc> :nohl<cr>
 
 set noswapfile
 set nobackup
+set nowritebackup
 set nowb
 
 set autoindent
@@ -223,6 +121,7 @@ set autoread
 set scrolloff=5
 set updatetime=250
 set completeopt-=preview
+set hidden
 
 " make vim in terminal somewhat faster
 set ttyfast
@@ -234,8 +133,8 @@ map <C-h> <C-w>h
 " map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
-nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+" nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 
 "key mapping for tab navigation
 nnoremap <C-k> :tabprevious<CR>
@@ -254,16 +153,19 @@ nnoremap <leader>. <c-^>        " Switch between last buffer
 " write using sudo
 cmap w!! w !sudo tee > /dev/null %
 
-colorscheme solarized
+colorscheme NeoSolarized
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "high"
 set bg=light
 " set bg=dark
 
+set cursorline                  " Highlight the screenline of the cursor
+
 if has("gui_running")
-    let g:solarized_contrast="high"
-    let g:solarized_visibility="high"
-    set cursorline                  " Highlight the screenline of the cursor
-    set linespace=6
-    set guifont=Hack:h11
+  set linespace=5
+  set guifont=Fira\ Code\ Light:h12
+  set columns=200
+  set lines=45
 endif
 
 " try to speed up ruby

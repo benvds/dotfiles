@@ -8,14 +8,16 @@ SETUVAR FZF_TMUX_HEIGHT:40\x25
 SETUVAR __fish_init_2_39_8:\x1d
 SETUVAR __fish_init_2_3_0:\x1d
 SETUVAR __fish_init_3_x:\x1d
-SETUVAR __fish_initialized:2398
+SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_be:bundle\x20exec
 SETUVAR _fish_abbr_bef:bundle\x20exec\x20foreman
+SETUVAR _fish_abbr_c:code
 SETUVAR _fish_abbr_g:git
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gc:git\x20commit\x20\x2dm
 SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_gs:git\x20status
+SETUVAR _fish_abbr_l:ls\x20\x2dlash
 SETUVAR _fish_abbr_s:subl
 SETUVAR _fish_abbr_s_2E_:subl\x20\x2e
 SETUVAR _fish_abbr_v:vim
@@ -31,6 +33,7 @@ SETUVAR fish_color_error:dc322f
 SETUVAR fish_color_escape:00a6b2
 SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
 SETUVAR fish_color_normal:normal
 SETUVAR fish_color_operator:00a6b2
