@@ -92,41 +92,41 @@ export EDITOR="vim"
 # vim als postgres default editor
 export PSQL_EDITOR='vim +"set syntax=sql" '
 
-# ruby switching
-if [[ -e /usr/local/share/chruby ]]; then
-  # Load chruby
-  source '/usr/local/share/chruby/chruby.sh'
-
-  # Automatically switch rubies
-  source '/usr/local/share/chruby/auto.sh'
-
-  # Set a default ruby if a .ruby-version file exists in the home dir
-  if [[ -f ~/.ruby-version ]]; then
-    chruby $(cat ~/.ruby-version)
-  fi
-fi
+# # ruby switching
+# if [[ -e /usr/local/share/chruby ]]; then
+#   # Load chruby
+#   source '/usr/local/share/chruby/chruby.sh'
+#
+#   # Automatically switch rubies
+#   source '/usr/local/share/chruby/auto.sh'
+#
+#   # Set a default ruby if a .ruby-version file exists in the home dir
+#   if [[ -f ~/.ruby-version ]]; then
+#     chruby $(cat ~/.ruby-version)
+#   fi
+# fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/ripgreprc"
 
-# node switching
-# nvm is slow
-# [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
-export NVM_DIR="$HOME/.nvm"
-alias loadnvm="[[ -s /usr/local/opt/nvm/nvm.sh ]] && source /usr/local/opt/nvm/nvm.sh"
+# # node switching
+# # nvm is slow
+# # [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+# export NVM_DIR="$HOME/.nvm"
+# alias loadnvm="[[ -s /usr/local/opt/nvm/nvm.sh ]] && source /usr/local/opt/nvm/nvm.sh"
 
 # python virtualenv switching
 # brew install pyenv-virtualenv
-if which pyenv-virtualenv-init > /dev/null; then
-    eval "$(pyenv init -)";
-    eval "$(pyenv virtualenv-init -)";
-
-    export WORKON_HOME=~/.envs
-fi
+# if which pyenv-virtualenv-init > /dev/null; then
+#     eval "$(pyenv init -)";
+#     eval "$(pyenv virtualenv-init -)";
+#
+#     export WORKON_HOME=~/.envs
+# fi
 
 # brew install autoenv
-if [ ! -f /usr/local/opt/autoenv/activate.sh ]; then
-    source /usr/local/opt/autoenv/activate.sh
-fi
+# if [ ! -f /usr/local/opt/autoenv/activate.sh ]; then
+#     source /usr/local/opt/autoenv/activate.sh
+# fi
 
 ### Added by the Heroku Toolbelt
 # export PATH="/usr/local/heroku/bin:$PATH"
