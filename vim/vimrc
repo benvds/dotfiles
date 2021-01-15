@@ -3,15 +3,15 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
 ", { 'for': ['javascript', 'typescript'] }
-Plug 'yuezk/vim-js',
-Plug 'maxmellon/vim-jsx-pretty',
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'overcache/NeoSolarized'
 Plug 'wincent/ferret'
 Plug 'SirVer/ultisnips'
@@ -26,7 +26,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'leafgarland/typescript-vim',
+Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'develop' }
 Plug 'mbbill/undotree'
@@ -58,7 +58,8 @@ let g:coc_global_extensions = [
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'ervandew/supertab'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 " Plug 'honza/vim-snippets'
 " Plug 'tpope/vim-endwise'
 " Plug 'w0rp/ale'
@@ -198,3 +199,9 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" fzf
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-g> :GFiles<CR>
+nnoremap <silent> <C-o> :Buffers<CR>
+nnoremap <silent> <C-f> :Rg! 
