@@ -64,8 +64,8 @@ abbr --add be bundle exec
 abbr --add bef bundle exec foreman
 abbr --add g git
 abbr --add gs git status
+# abbr --add gd git diff
 abbr --add ga git add
-abbr --add gd git diff
 abbr --add gc git commit -m
 abbr --add c code
 
@@ -103,7 +103,6 @@ end
 
 source ~/.asdf/asdf.fish
 
-# set iterm 2 color profile: it2prof light
-function it2prof
-    echo -e "\033]50;SetProfile=$1\a"
+function batdiff
+  git diff --name-only --diff-filter=d | xargs bat --diff
 end
