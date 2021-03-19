@@ -2,19 +2,13 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
-    "typescriptreact",
-    "json",
     "javascriptreact",
-    "typescript.tsx"
+    "typescriptreact",
+    "json"
   ],
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.filetypes": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "typescript.tsx"
-  ]
+  "eslint.packageManager": "yarn",
+  "eslint.autoFixOnSave": true
 }
+
