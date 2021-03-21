@@ -9,9 +9,9 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
-Plug 'yuezk/vim-js'
-Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'yuezk/vim-js'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'maxmellon/vim-jsx-pretty'
 Plug 'overcache/NeoSolarized'
 " Plug 'wincent/ferret'
 Plug 'brooth/far.vim'
@@ -66,18 +66,25 @@ Plug 'junegunn/fzf.vim'
 " Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 " Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
+  Plug 'nvim-treesitter/nvim-treesitter'
+
 " Initialize plugin system
 call plug#end()
 
 
-autocmd BufNewFile,BufRead *.js set filetype=javascriptreact
-autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
-autocmd BufNewFile,BufRead *.ts set filetype=typescriptreact
-autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+luafile $HOME/.config/nvim/lua/init.lua
 
-" vim-styled-components: prevent syntax highlighting getting out of sync
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+" autocmd BufNewFile,BufRead *.js set filetype=javascriptreact
+" autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+" autocmd BufNewFile,BufRead *.ts set filetype=typescriptreact
+" autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead *.{js,jsx} set filetype=javascriptreact
+autocmd BufNewFile,BufRead *.{ts,tsx} set filetype=typescriptreact
+
+" " vim-styled-components: prevent syntax highlighting getting out of sync
+" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+autocmd BufEnter *.{js,jsx,ts,tsx} setlocal syntax=off
 
 let g:netrw_banner = 0
 
