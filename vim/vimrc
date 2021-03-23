@@ -1,40 +1,35 @@
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-ragtag'
-Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
-" Plug 'yuezk/vim-js'
-" Plug 'leafgarland/typescript-vim'
-" Plug 'maxmellon/vim-jsx-pretty'
 Plug 'overcache/NeoSolarized'
-" Plug 'wincent/ferret'
-Plug 'brooth/far.vim'
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'SirVer/ultisnips'
-" Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-ruby/vim-ruby'
-Plug 'itchyny/lightline.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-" Plug 'peitalin/vim-jsx-typescript'
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'develop' }
 Plug 'mbbill/undotree'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jeffkreeftmeijer/vim-dim'
-Plug 'jeffkreeftmeijer/vim-nightfall'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug '/usr/local/opt/fzf'
+Plug 'nvim-treesitter/nvim-treesitter'
+
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
@@ -53,20 +48,6 @@ let g:coc_global_extensions = [
   \ 'coc-syntax',
   \ 'coc-ultisnips'
   \ ]
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
-" Plug 'editorconfig/editorconfig-vim' " broken 2018-10-15
-" Plug 'Valloric/YouCompleteMe'
-" Plug 'ervandew/supertab'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-" Plug 'honza/vim-snippets'
-" Plug 'tpope/vim-endwise'
-" Plug 'w0rp/ale'
-" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-" Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-
-  Plug 'nvim-treesitter/nvim-treesitter'
 
 " Initialize plugin system
 call plug#end()
@@ -74,22 +55,12 @@ call plug#end()
 
 luafile $HOME/.config/nvim/lua/init.lua
 
-" autocmd BufNewFile,BufRead *.js set filetype=javascriptreact
-" autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
-" autocmd BufNewFile,BufRead *.ts set filetype=typescriptreact
-" autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+" let treesitter handle javascript
 autocmd BufNewFile,BufRead *.{js,jsx} set filetype=javascriptreact
 autocmd BufNewFile,BufRead *.{ts,tsx} set filetype=typescriptreact
-
-" " vim-styled-components: prevent syntax highlighting getting out of sync
-" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 autocmd BufEnter *.{js,jsx,ts,tsx} setlocal syntax=off
 
 let g:netrw_banner = 0
-
-" allow jsx in regular js extensions
-" let g:jsx_ext_required = 0
 
 " General
 
@@ -163,19 +134,9 @@ cmap w!! w !sudo tee > /dev/null %
 colorscheme NeoSolarized
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
-" set bg=light
+set bg=light
 
 set cursorline                  " Highlight the screenline of the cursor
-
-if has("gui_running")
-  set linespace=5
-  set guifont=Fira\ Code\ Light:h12
-  set columns=200
-  set lines=45
-endif
-
-" try to speed up ruby
-" let g:ruby_path="/usr/bin/ruby"
 
 " somehow this only works when set globally
 set re=1
@@ -185,12 +146,6 @@ if !has("nvim")
   set noballooneval
 endif
 let g:netrw_nobeval = 1
-
-augroup ft_rb
-    au!
-    " fix the SLOOOW syntax highlighting
-    au FileType ruby setlocal re=1 foldmethod=manual
-augroup END
 
 " http://vim.wikia.com/wiki/Search_for_visually_selected_text
 " Search for selected text, forwards or backwards.
@@ -204,19 +159,3 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-" fzf
-" nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <C-p> :GFiles<CR>
-nnoremap <silent> <C-g> :Buffers<CR>
-nnoremap <silent> <C-f> :Rg! 
-
-
-
-" FAR
-let g:far#source='rg'
-let g:far#window_width=60
-" Use %:p with buffer option only
-let g:far#file_mask_favorites=['%:p', '**/*.*', '**/*.js', '**/*.py', '**/*.java', '**/*.css', '**/*.html', '**/*.vim', '**/*.cpp', '**/*.c', '**/*.h', ]
-let g:far#window_min_content_width=30
-let g:far#enable_undo=1
