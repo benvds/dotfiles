@@ -103,6 +103,6 @@ end
 
 source ~/.asdf/asdf.fish
 
-function batdiff
-  git diff --name-only --diff-filter=d | xargs bat --diff
-end
+# fix bit completions
+# https://github.com/chriswalz/bit/issues/3#issuecomment-707170078
+set -Ux COMP_POINT 1
