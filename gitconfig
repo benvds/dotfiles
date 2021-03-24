@@ -108,6 +108,9 @@
   editor = nvim -u NONE
 	excludesfile = /Users/benvds/.dotfiles/gitignore
   pager = delta
+[delta]
+  syntax-theme = Solarized (light)
+  features = side-by-side line-numbers decorations
 [advice]
   statusHints = false
 [diff]
@@ -125,21 +128,15 @@
 [difftool]
 	prompt = false
 [difftool "default-difftool"]
-	cmd = ~/.dotfiles/scripts/default-difftool.sh $LOCAL $REMOTE
+	cmd = vim -d $LOCAL $REMOTE
 [mergetool "default-difftool"]
-	cmd = ~/.dotfiles/scripts/default-difftool.sh $LOCAL $REMOTE
+	cmd = vim -d $LOCAL $REMOTE
 [filter "media"]
 	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
 [credential]
 	helper = osxkeychain
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [commit]
 	template = /Users/benvds/.stCommitMsg
 [filter "lfs"]
