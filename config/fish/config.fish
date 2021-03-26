@@ -41,6 +41,7 @@ set -gx LDFLAGS "-L/usr/local/opt/icu4c/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/icu4c/include"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig"
 set -gx JAVA_HOME (/usr/libexec/java_home)
+set -gx HOMEBREW_NO_AUTO_UPDATE 1 # thx @koenvo
 
 set -U fish_greeting ""
 

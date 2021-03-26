@@ -30,6 +30,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'vim-scripts/YankRing.vim' " messes up existing key bindings
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'glepnir/galaxyline.nvim'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 let g:coc_global_extensions = [

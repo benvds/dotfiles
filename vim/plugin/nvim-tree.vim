@@ -1,4 +1,5 @@
 let g:nvim_tree_hijack_netrw = 1
+let g:nvim_tree_width = 40
 let g:nvim_tree_show_icons = {
   \ 'git': 1,
   \ 'folders': 1,
