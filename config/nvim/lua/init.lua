@@ -1,6 +1,9 @@
 require('plugins/treesitter')
 require('plugins/galaxyline')
 require('plugins/lspconfig')
+require('plugins/compe')
+require('plugins/saga')
+require('plugins/kind')
 
 require('lsp/config')
 require('lsp/efm')
