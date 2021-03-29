@@ -94,21 +94,21 @@ gls.left[7] = {
 }
 
 
-gls.left[9] = {
-    CocStatus = {
-     provider = CocStatus,
-     highlight = {colors.green,colors.bg},
-     icon = '  🗱'
-    }
-}
+-- gls.left[9] = {
+--     CocStatus = {
+--      provider = CocStatus,
+--      highlight = {colors.green,colors.bg},
+--      icon = '  🗱'
+--     }
+-- }
 
-gls.left[10] = {
-  CocFunc = {
-    provider = CocFunc,
-    icon = '  λ ',
-    highlight = {colors.yellow,colors.bg},
-  }
-}
+-- gls.left[10] = {
+--   CocFunc = {
+--     provider = CocFunc,
+--     icon = '  λ ',
+--     highlight = {colors.yellow,colors.bg},
+--   }
+-- }
 
 gls.left[11] = {
     TrailingWhiteSpace = {

@@ -6,3 +6,4 @@
 "       \ 'jsxStatment' : '// %s',
 "       \ 'jsxRegion' : '{/*%s*/}',
 "       \}
+setlocal commentstring={/*%s*/}

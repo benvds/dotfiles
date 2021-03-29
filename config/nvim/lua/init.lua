@@ -1,2 +1,10 @@
 require('plugins/treesitter')
 require('plugins/galaxyline')
+require('plugins/lspconfig')
+
+require('lsp/config')
+require('lsp/efm')
+require('lsp/tsserver')
+require('lsp/graphql')
+require('lsp/html')
+require('lsp/css')
