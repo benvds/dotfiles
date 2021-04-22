@@ -11,8 +11,9 @@ Plug 'tpope/vim-ragtag'
 Plug 'machakann/vim-sandwich'
 Plug 'overcache/NeoSolarized'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'tpope/vim-commentary'
-Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact'] }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
@@ -26,7 +27,6 @@ Plug 'mbbill/undotree'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jeffkreeftmeijer/vim-dim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'vim-scripts/YankRing.vim' " messes up existing key bindings
@@ -75,8 +75,8 @@ call plug#end()
 luafile $HOME/.config/nvim/lua/init.lua
 
 " let treesitter handle javascript
-autocmd BufNewFile,BufRead *.{js,jsx} set filetype=javascriptreact
-autocmd BufNewFile,BufRead *.{ts,tsx} set filetype=typescriptreact
+autocmd BufNewFile,BufRead *.{jsx} set filetype=javascriptreact
+autocmd BufNewFile,BufRead *.{tsx} set filetype=typescriptreact
 autocmd BufEnter *.{js,jsx,ts,tsx} setlocal syntax=off
 
 let g:netrw_banner = 0
@@ -179,6 +179,18 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+
+function! ToggleQuickFix()
+    if getqflist({'winid' : 0}).winid
+        cclose
+    else
+        copen
+    endif
+endfunction
+
+command! -nargs=0 -bar ToggleQuickFix call ToggleQuickFix()
+
+nnoremap <C-q> :ToggleQuickFix<CR>
 
 " LSP
 " nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
