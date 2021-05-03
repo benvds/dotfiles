@@ -130,8 +130,11 @@ map <C-h> <C-w>h
 " map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" nnoremap <leader>jd :YcmCompleter GoTo<CR>
-" nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+
+" disable entering Ex mode
+map Q <Nop>
+
+nnoremap <C-t> :tabnew<CR>
 
 "key mapping for tab navigation
 nnoremap <C-k> :tabprevious<CR>
@@ -154,6 +157,7 @@ colorscheme NeoSolarized
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
 set bg=light
+set bg=dark
 
 set cursorline                  " Highlight the screenline of the cursor
 
@@ -219,7 +223,7 @@ nnoremap <silent> <Leader>cr <cmd>lua require('lspsaga.rename').rename()<CR>
 nnoremap <silent> <Leader>cf <cmd>lua vim.lsp.buf.formatting()<CR>
 vnoremap <silent> <Leader>cf <cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>
 nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-nnoremap <silent> <C-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+" nnoremap <silent> <C-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 nnoremap <silent> [g <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]g <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
