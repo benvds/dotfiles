@@ -157,7 +157,7 @@ colorscheme NeoSolarized
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
 set bg=light
-set bg=dark
+" set bg=dark
 
 set cursorline                  " Highlight the screenline of the cursor
 

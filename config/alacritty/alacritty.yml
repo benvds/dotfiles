@@ -1,0 +1,105 @@
+# alacritty.yml
+
+font:
+  normal:
+    family: "FiraCode Nerd Font Mono"
+  size: 12.0
+  offset:
+    y: 4
+  use_thin_strokes: false
+
+key_bindings:
+# - { key: F,  mods: Alt,           chars: "\x1bf"                       }
+# - { key: B,  mods: Alt,           chars: "\x1bb"                       }
+# - { key: Key0,     mods: Alt,     chars: "º"                           }
+# - { key: Key1,     mods: Alt,     chars: "¡"                           }
+# - { key: Key2,     mods: Alt,     chars: "€"                           }
+# - { key: Key3,     mods: Alt,     chars: "#"                           }
+# - { key: Key4,     mods: Alt,     chars: "¢"                           }
+# - { key: Key5,     mods: Alt,     chars: "∞"                           }
+# - { key: Key6,     mods: Alt,     chars: "§"                           }
+# - { key: Key7,     mods: Alt,     chars: "¶"                           }
+# - { key: Key8,     mods: Alt,     chars: "•"                           }
+# - { key: Key9,     mods: Alt,     chars: "ª"                           }
+- { key: N,         mods: Command,      action: SpawnNewInstance       }
+- { key: Space,     mods: Alt,          chars: " "                     }
+- { key: Back, mods: Super, chars: "\x15" } # delete word/line
+- { key: Left,     mods: Alt,     chars: "\x1bb"                       } # one word left
+- { key: Right,    mods: Alt,     chars: "\x1bf"                       } # one word right
+- { key: Left,     mods: Command, chars: "\x1bOH",   mode: AppCursor   } # Home
+- { key: Right,    mods: Command, chars: "\x1bOF",   mode: AppCursor   } # End
+- { key: D,  mods: Alt,           chars: "\x1bd"                       }
+- { key: A,  mods: Alt,           chars: "\x1ba"                       }
+- { key: B,  mods: Alt,           chars: "\x1bb"                       }
+
+
+schemes:
+  solarized_light: &light
+    # Default colors
+    primary:
+      background: '#fdf6e3' # base3
+      foreground: '#657b83' # base00
+
+    # Cursor colors
+    cursor:
+      text:   '#fdf6e3' # base3
+      cursor: '#657b83' # base00
+
+    # Normal colors
+    normal:
+      black:   '#073642' # base02
+      red:     '#dc322f' # red
+      green:   '#859900' # green
+      yellow:  '#b58900' # yellow
+      blue:    '#268bd2' # blue
+      magenta: '#d33682' # magenta
+      cyan:    '#2aa198' # cyan
+      white:   '#eee8d5' # base2
+
+    # Bright colors
+    bright:
+      black:   '#002b36' # base03
+      red:     '#cb4b16' # orange
+      green:   '#586e75' # base01
+      yellow:  '#657b83' # base00
+      blue:    '#839496' # base0
+      magenta: '#6c71c4' # violet
+      cyan:    '#93a1a1' # base1
+      white:   '#fdf6e3' # base3
+
+
+# Colors (Solarized Dark)
+  solarized_dark: &dark
+    # Default colors
+    primary:
+      background: '#002b36' # base03
+      foreground: '#839496' # base0
+
+    # Cursor colors
+    cursor:
+      text:   '#002b36' # base03
+      cursor: '#839496' # base0
+
+    # Normal colors
+    normal:
+      black:   '#073642' # base02
+      red:     '#dc322f' # red
+      green:   '#859900' # green
+      yellow:  '#b58900' # yellow
+      blue:    '#268bd2' # blue
+      magenta: '#d33682' # magenta
+      cyan:    '#2aa198' # cyan
+      white:   '#eee8d5' # base2
+
+    # Bright colors
+    bright:
+      black:   '#002b36' # base03
+      red:     '#cb4b16' # orange
+      green:   '#586e75' # base01
+      yellow:  '#657b83' # base00
+      blue:    '#839496' # base0
+      magenta: '#6c71c4' # violet
+      cyan:    '#93a1a1' # base1
+      white:   '#fdf6e3' # base3
+
+colors: *light
