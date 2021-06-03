@@ -33,6 +33,7 @@ set -x PATH "$PATH:$HOME/Library/Android/sdk/tools/bin"
 set -x PATH "$PATH:$HOME/Library/Android/sdk/tools"
 set -x PATH "$PATH:$PYENV_ROOT/bin"
 set -x PATH "$PATH:/usr/local/opt/imagemagick@6/bin"
+set -x PATH "$PATH:$HOME/.asdf/installs/rust/stable/bin"
 # set -gx ASDF_DIR "/usr/local/opt/asdf"
 
 set -g fish_user_paths "/usr/local/opt/icu4c/bin" $fish_user_paths
@@ -103,6 +104,7 @@ end
 # <<< conda initialize <<<
 
 source ~/.asdf/asdf.fish
+# source ~/.asdf/installs/rust/stable/env
 
 # fix bit completions
 # https://github.com/chriswalz/bit/issues/3#issuecomment-707170078
