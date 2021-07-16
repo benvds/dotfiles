@@ -36,6 +36,11 @@ set -x PATH "$PATH:/usr/local/opt/imagemagick@6/bin"
 set -x PATH "$PATH:$HOME/.asdf/installs/rust/stable/bin"
 # set -gx ASDF_DIR "/usr/local/opt/asdf"
 
+# Satisfy Fastlane for iOS:
+# https://docs.fastlane.tools/getting-started/ios/setup/
+set -g LC_ALL "en_US.UTF-8"
+set -g LANG "en_US.UTF-8"
+
 set -g fish_user_paths "/usr/local/opt/icu4c/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/icu4c/sbin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/icu4c/lib"
