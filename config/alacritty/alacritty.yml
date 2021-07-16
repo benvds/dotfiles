@@ -2,10 +2,11 @@
 
 font:
   normal:
-    family: "FiraCode Nerd Font Mono"
+    # family: "FiraCode Nerd Font Mono"
+    family: "Hack"
   size: 12.0
   offset:
-    y: 4
+    y: 5
   use_thin_strokes: false
 
 key_bindings:

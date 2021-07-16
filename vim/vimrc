@@ -31,6 +31,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'vim-scripts/YankRing.vim' " messes up existing key bindings
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'glepnir/galaxyline.nvim'
 Plug 'junegunn/goyo.vim'
@@ -233,8 +234,8 @@ nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 " nnoremap <silent> <C-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 nnoremap <silent> [g <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]g <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
 nnoremap <silent> <leader>cl <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
 
 " Compe
@@ -243,7 +244,16 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 " inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 " inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 3000)
+" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 3000)
+" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 3000)
+" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 3000)
+
+
+
+" Autofix entire buffer with eslint_d:
+nnoremap <leader>f mF:%!eslint_d --stdin --fix-to-stdout<CR>`F
+" Autofix visual selection with eslint_d:
+vnoremap <leader>f :!eslint_d --stdin --fix-to-stdout<CR>gv
+
+let &t_ut=''
